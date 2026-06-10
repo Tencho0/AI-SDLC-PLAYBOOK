@@ -1,0 +1,7 @@
+# Keep the playbook pristine — no project-specific data is ever committed.
+src/*
+!src/README.md
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
