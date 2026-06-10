@@ -1,7 +1,7 @@
 ---
 name: security-review
 description: Use to review code, architecture, and configuration for security risks — auth, injection, secrets, dependencies, data protection. Trigger cues — "security review", "check for vulnerabilities", "secrets handling", "threat check", "security baseline".
-tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
+tools: Read, Grep, Glob, Write, Bash, WebSearch, WebFetch
 ---
 
 # Security Review Agent
@@ -25,3 +25,4 @@ Greenfield Step 6 (security baseline) + per-PR when needed; Inherited stabilizat
 - **Human review owner:** Security Owner / Tech Lead.
 - Separate **Observed facts / Assumptions / Risks / Recommendations / Open questions** in every output.
 - Report-only; humans own security decisions. Never paste real secrets/credentials into prompts.
+- `Write` is for authoring the report into `delivery/` only — never modify project code (no `Edit`).

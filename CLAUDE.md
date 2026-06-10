@@ -9,8 +9,8 @@ This repository is a **reusable base** for running AI-assisted Scrum delivery on
 1. **Create the workspace:** `src/<engagement>/` with `request/` and `delivery/` subfolders.
 2. **Add the request:** put the raw client request in `src/<engagement>/request/`.
 3. **Classify:** **greenfield** (new build) vs **inherited** (existing/takeover) — see `playbook/greenfield-vs-inherited.md`.
-4. **Run agents per step:** invoke the relevant agent (below); write each artifact to `src/<engagement>/delivery/`.
-5. **Clone the project repo:** into `src/<engagement>/<project-repo>/`. Durable project docs (its own README, CLAUDE.md, ADRs) and code/tests go INSIDE that repo, not in `delivery/`.
+4. **Run agents per step:** follow the **Step-by-step run order** below — it maps each numbered Greenfield/Inherited step to its agent and output template. Write each artifact to `src/<engagement>/delivery/`.
+5. **Clone the project repo:** into `src/<engagement>/<project-repo>/`. Durable project docs (its own README, CLAUDE.md, ADRs) and code/tests go INSIDE that repo, not in `delivery/`. For **inherited** engagements the first agents (Inherited Steps 1–2) run from `request/` alone — the repo is cloned only once access is granted, so an empty `<project-repo>/` early on is expected, not a blocker.
 
 Nothing project-specific is ever committed to this playbook repo.
 
@@ -32,6 +32,51 @@ Nothing project-specific is ever committed to this playbook repo.
 | `retrospective-insights` | Analyze Sprint patterns & improvements | Retrospective Insights Pack | Scrum Master / Scrum Team |
 
 Invoke an agent with the Task/Agent tool (`subagent_type` = agent name), or let Claude auto-route via the agent's `description`. Each agent file lists the exact template(s) it fills.
+
+## Step-by-step run order
+
+The authoritative step sequence lives in `playbook/PLAYBOOK.md` (§5 greenfield, §6 inherited). These tables map each step to the agent that drives it and the template it fills.
+
+### Greenfield (new build)
+
+| Step | Scrum activity | Agent | Output template |
+|------|----------------|-------|-----------------|
+| 1 | Client request | `product-discovery` | `templates/greenfield/project-request-brief.md` |
+| 2 | Discovery prep | `product-discovery` | `templates/greenfield/discovery-workshop-plan.md` |
+| 3 | Discovery meetings | `product-discovery` | `templates/greenfield/discovery-meeting-summary.md` |
+| 4 | Product Goal | `product-discovery` | `templates/greenfield/product-goal-draft.md` |
+| 5 | Initial backlog | `product-backlog` | `templates/greenfield/initial-product-backlog-pack.md` |
+| 6 | Architecture foundation | `implementation` (+ `security-review`, `documentation`) | `templates/greenfield/architecture-technical-foundation-pack.md` |
+| 7 | Backlog refinement | `product-backlog` | `templates/shared/refined-story-pack.md` |
+| 8 | Sprint Planning | `scrum-planning` | `templates/shared/sprint-planning-support-pack.md` |
+| 9 | Sprint execution | `implementation` | `templates/shared/implementation-pack.md` |
+| 10 | Daily Scrum | `scrum-planning` | `templates/shared/daily-scrum-support-summary.md` |
+| 11 | Code review | `code-review` | `templates/shared/ai-pr-review-report.md` |
+| 12 | QA & testing | `qa-test-design` (+ `test-automation`) | `templates/shared/qa-test-pack.md` |
+| 13 | Sprint Review | `scrum-planning` | `templates/shared/sprint-review-pack.md` |
+| 14 | Retrospective | `retrospective-insights` | `templates/shared/retrospective-insights-pack.md` |
+| 15 | Release readiness | `devops` | `templates/shared/release-readiness-pack.md` |
+
+### Inherited (existing / takeover)
+
+| Step | Focus | Agent | Output template |
+|------|-------|-------|-----------------|
+| 1 | Takeover request | `product-discovery` | `templates/inherited/takeover-request-brief.md` |
+| 2 | Access & information | `product-discovery` | `templates/inherited/access-information-checklist.md` |
+| 3 | System assessment | `implementation` | `templates/inherited/initial-system-assessment.md` |
+| 4 | Stabilization Goal | `product-discovery` | `templates/inherited/inherited-project-goal-draft.md` |
+| 5 | Business-rule recovery | `documentation` | `templates/inherited/business-rule-recovery-report.md` |
+| 6 | Codebase mapping | `implementation` | `templates/inherited/codebase-architecture-map.md` |
+| 7 | Stabilization backlog | `product-backlog` | `templates/inherited/stabilization-product-backlog.md` |
+| 8 | Backlog refinement | `product-backlog` | `templates/inherited/inherited-refined-story-pack.md` |
+| 9 | Sprint Planning | `scrum-planning` | `templates/inherited/inherited-sprint-planning-support-pack.md` |
+| 10 | Safe execution | `implementation` | `templates/inherited/safe-change-pack.md` |
+| 11 | Regression QA | `qa-test-design` (+ `test-automation`) | `templates/inherited/regression-test-pack.md` |
+| 12 | Sprint Review | `scrum-planning` | `templates/inherited/inherited-sprint-review-pack.md` |
+| 13 | Retrospective | `retrospective-insights` | `templates/inherited/inherited-retrospective-insights-pack.md` |
+| 14 | Modernization | `documentation` (+ Architect) | `templates/inherited/modernization-roadmap.md` |
+
+Cross-cutting events that recur every sprint in both scenarios — code review, QA, Daily Scrum, security review, release readiness — draw from `templates/shared/`.
 
 ## Templates (output packs)
 

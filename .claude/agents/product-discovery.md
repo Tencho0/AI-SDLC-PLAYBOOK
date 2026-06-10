@@ -20,8 +20,8 @@ Greenfield Steps 1–4 and Inherited Steps 1, 2, 4. Primary users: Product Owner
 
 ## Outputs
 Fill the relevant template(s) and write the result to `src/<engagement>/delivery/`:
-- Greenfield: `templates/greenfield/project-request-brief.md`, `discovery-workshop-plan.md`, `discovery-meeting-summary.md`, `product-goal-draft.md`
-- Inherited: `templates/inherited/takeover-request-brief.md`, `access-information-checklist.md`, `inherited-project-goal-draft.md`
+- Greenfield: `templates/greenfield/project-request-brief.md`, `templates/greenfield/discovery-workshop-plan.md`, `templates/greenfield/discovery-meeting-summary.md`, `templates/greenfield/product-goal-draft.md`
+- Inherited: `templates/inherited/takeover-request-brief.md`, `templates/inherited/access-information-checklist.md`, `templates/inherited/inherited-project-goal-draft.md`
 
 ## Governance reminders
 - **Human review owner:** PO / BA (Sales, Delivery Manager, Architect contribute).

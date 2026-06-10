@@ -33,9 +33,13 @@ Either re-clone per engagement, or keep multiple engagements side-by-side under 
 
 ## Verify the scaffold
 
+Optional structural self-check (Windows PowerShell):
+
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/verify-scaffold.ps1
 ```
+
+On macOS/Linux use PowerShell 7 (`pwsh scripts/verify-scaffold.ps1`). The check is optional — the scaffold is plain Markdown, so you can skip it if PowerShell isn't available.
 
 ## Deferred (future passes)
 
