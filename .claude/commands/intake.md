@@ -26,6 +26,10 @@ Work through these steps in order. Stop and ask the user wherever a step says to
      - [ ] 2 Discovery Workshop Plan
      - [ ] 3 Discovery Meeting Summary
      - [ ] 4 Product Goal Draft
+     - [ ] 5 Initial Product Backlog Pack
+     - [ ] 6 Architecture & Technical Foundation Pack
+     - [ ] 7 Refined Story Pack
+     - [ ] 8 Sprint Planning Support Pack
      ```
      Inherited:
      ```
@@ -34,6 +38,11 @@ Work through these steps in order. Stop and ask the user wherever a step says to
      - [ ] 2 Access & Information Checklist
      - [ ] 3 Initial System Assessment
      - [ ] 4 Inherited Project Goal Draft
+     - [ ] 5 Business Rule Recovery Report
+     - [ ] 6 Codebase & Architecture Map
+     - [ ] 7 Stabilization Product Backlog
+     - [ ] 8 Inherited Refined Story Pack
+     - [ ] 9 Inherited Sprint Planning Support Pack
      ```
    - **Re-run** (`<rerun>` true): do NOT reset progress. Leave the frontmatter and every already-checked step exactly as they were — only confirm step 1 stays checked and points at the brief you just regenerated. Preserve steps 2–4 and their checkmarks as-is.
 
