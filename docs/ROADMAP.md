@@ -17,8 +17,8 @@
 |------|-------|----------|--------|
 | **1 — Scaffold** | Foundation | `.docx`→`playbook/` Markdown, 12 agents, 30 templates, `CLAUDE.md` brain, `.gitignore`, `scripts/verify-scaffold.ps1` | ✅ Done |
 | **2 — Intake + Discovery** | Run-order steps 1–4, both tracks | `/intake` + `/discovery-prep` / `/discovery-summary` / `/product-goal` (GF) and `/access-checklist` / `/system-assessment` / `/stabilization-goal` (INH); `engagement.md` state file | ✅ Done |
-| **3 — Setup & Planning** | Steps 5–8 (GF) / 5–9 (INH) — *linear, once per engagement* | GF: `/initial-backlog`, `/architecture`, `/refine`, `/sprint-plan`. INH: `/recover-rules`, `/map-codebase`, `/stabilization-backlog`, `/refine`, `/sprint-plan` | ⏭️ Next |
-| **4 — Sprint Execution & QA** | Steps 9–12 (GF) / 10–11 (INH) — *recurring per ticket/PR* | execution, daily-scrum, code-review, QA commands. **Needs a new recurring-command shape first** (see Open decisions). | 📋 Planned |
+| **3 — Setup & Planning** | Steps 5–8 (GF) / 5–9 (INH) — *linear, once per engagement* | GF: `/initial-backlog`, `/architecture`, `/refine`, `/sprint-plan`. INH: `/recover-rules`, `/map-codebase`, `/stabilization-backlog`, `/refine`, `/sprint-plan` | ✅ Done |
+| **4 — Sprint Execution & QA** | Steps 9–12 (GF) / 10–11 (INH) — *recurring per ticket/PR* | execution, daily-scrum, code-review, QA commands. **Needs a new recurring-command shape first** (see Open decisions). | ⏭️ Next |
 | **5 — Review, Retro, Release / Modernization** | Steps 13–15 (GF) / 12–14 (INH) — *per sprint / milestone* | GF: sprint-review, retrospective, release-readiness. INH: sprint-review, retrospective, modernization-roadmap | 📋 Planned |
 | **6 — Skills** *(optional)* | Cross-cutting | Reusable multi-step skills (e.g. a `/status` / `/next` engagement navigator) | 💡 Backlog |
 | **7 — Plugin packaging** *(optional)* | Portability | Package agents + commands as an installable Claude Code plugin so they drop into any repo without cloning the base | 💡 Backlog |
@@ -38,3 +38,4 @@ Delete this file once **Passes 3, 4, and 5 are merged** — i.e. every step in b
 
 - Pass 1 merged + pushed; repo marked as a GitHub template.
 - Pass 2 merged + pushed; built, audited (fidelity/consistency/usability), and code-reviewed (15 findings fixed) at the code level.
+- Pass 3 built on branch `setup-planning-commands`: 7 setup & planning commands added (`/initial-backlog`, `/architecture`, `/recover-rules`, `/map-codebase`, `/stabilization-backlog`, scenario-aware `/refine` + `/sprint-plan`); `/intake` seed extended to the full linear chain (GF 1–8 / INH 1–9); verifier extended to 14 commands and green; audited and code-reviewed. Roadmap kept (deletion waits for Passes 4–5).

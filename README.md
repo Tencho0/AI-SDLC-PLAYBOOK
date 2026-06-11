@@ -18,7 +18,7 @@ A reusable, pristine base for running **AI-assisted Scrum delivery** on client e
 
 1. Get a clean copy of this repo (clone, or "Use this template" on GitHub).
 2. Open Claude Code here and run `/intake <engagement>` (e.g. `/intake acme-portal`). It creates the workspace, asks greenfield vs inherited, takes the request (from `src/<engagement>/request/` or by prompt), and produces the first brief.
-3. Follow the command it points you to next — greenfield: `/discovery-prep` → `/discovery-summary` → `/product-goal`; inherited: `/access-checklist` → `/system-assessment` → `/stabilization-goal`.
+3. Follow the command it points you to next, through discovery into setup & planning — greenfield: `/discovery-prep` → `/discovery-summary` → `/product-goal` → `/initial-backlog` → `/architecture` → `/refine` → `/sprint-plan`; inherited: `/access-checklist` → `/system-assessment` → `/stabilization-goal` → `/recover-rules` → `/map-codebase` → `/stabilization-backlog` → `/refine` → `/sprint-plan`.
 4. For inherited projects, clone the project's own repo into `src/<engagement>/<project-repo>/` when access is granted (before `/system-assessment`).
 
 Everything under `src/` is gitignored, so this base never accumulates client data and can be reused across many projects.
@@ -39,4 +39,4 @@ On macOS/Linux use PowerShell 7 (`pwsh scripts/verify-scaffold.ps1`). The check 
 
 ## Deferred (future passes)
 
-The intake + discovery slash commands (`/intake` and the six discovery step commands) are built. Still deferred: commands for the remaining steps (backlog → planning → execution → review → retro → release / modernization), reusable skills, and plugin packaging — see `docs/superpowers/specs/`.
+The intake + discovery and setup + planning slash commands are built — the full once-per-engagement chain from `/intake` through `/sprint-plan` (greenfield and inherited). Still deferred: commands for the recurring per-sprint steps (sprint execution → daily scrum → code review → QA → sprint review → retrospective → release / modernization), reusable skills, and plugin packaging — see `docs/superpowers/specs/`.
