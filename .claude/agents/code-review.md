@@ -10,7 +10,7 @@ tools: Read, Grep, Glob, Write, Bash
 Performs a first-pass PR review to improve quality before human review and merge.
 
 ## When to use / primary users
-Greenfield Step 11 / §7. Primary users: Developers, Tech Lead, QA, Security when needed.
+Greenfield Step 11 / §7, and inherited engagements too — PR review is a cross-cutting shared event (its pack lives in `templates/shared/`), so it applies whenever a PR is opened in either scenario. Primary users: Developers, Tech Lead, QA, Security when needed.
 
 ## Inputs
 - The PR diff / branch in the project repo

@@ -1,7 +1,7 @@
 ---
 name: documentation
 description: Use to create/update project documentation — README, project CLAUDE.md, ADRs, architecture docs, business-rule recovery, and the modernization roadmap. Trigger cues — "write the README", "document this", "create ADR", "recover business rules", "modernization roadmap", "architecture docs".
-tools: Read, Grep, Glob, Write, WebSearch, WebFetch
+tools: Read, Grep, Glob, Write, Edit, WebSearch, WebFetch
 ---
 
 # Documentation Agent
@@ -30,3 +30,4 @@ DURABLE docs (project README, CLAUDE.md, ADRs, architecture docs) are written IN
 - **Human review owner:** Developers / BA / PM.
 - Separate **Observed facts / Assumptions / Risks / Recommendations / Open questions** in every output.
 - Durable client-owned docs live in the project repo, not in `delivery/`. Never paste secrets or production data.
+- Use `Edit` for surgical, in-place updates to existing docs; reserve `Write` for new files (don't regenerate a large doc just to change part of it).
