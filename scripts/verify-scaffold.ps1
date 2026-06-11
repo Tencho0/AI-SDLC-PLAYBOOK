@@ -65,6 +65,21 @@ Check ($gi -match '(?m)^\s*!src/README\.md\s*$') ".gitignore un-ignores src/READ
 $docx = Get-ChildItem $root -Filter *.docx -Recurse -ErrorAction SilentlyContinue
 Check (-not $docx) "no .docx files remain"
 
+# 6. Slash commands (7) — present with frontmatter (description + argument-hint)
+$commands = 'intake','discovery-prep','discovery-summary','product-goal',
+            'access-checklist','system-assessment','stabilization-goal'
+foreach ($c in $commands) {
+  $p = Join-Path $root ".claude/commands/$c.md"
+  if (-not (Test-Path $p)) { Check $false "command: $c.md"; continue }
+  $txt = Get-Content $p -Raw
+  $m = [regex]::Match($txt, '(?s)^---\s*\r?\n(.*?)\r?\n---')
+  Check ($m.Success) "command frontmatter: $c.md"
+  if ($m.Success) {
+    Check ([regex]::IsMatch($m.Groups[1].Value,'(?m)^description:\s*\S')) "command has description: $c.md"
+    Check ([regex]::IsMatch($m.Groups[1].Value,'(?m)^argument-hint:\s*\S')) "command has argument-hint: $c.md"
+  }
+}
+
 Write-Host ""
 if ($script:fail -eq 0) { Write-Host "ALL CHECKS PASSED" -ForegroundColor Green; exit 0 }
 else { Write-Host "$script:fail CHECK(S) FAILED" -ForegroundColor Red; exit 1 }
