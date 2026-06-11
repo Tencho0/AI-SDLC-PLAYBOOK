@@ -17,13 +17,9 @@ A reusable, pristine base for running **AI-assisted Scrum delivery** on client e
 ## Start a new engagement
 
 1. Get a clean copy of this repo (clone, or "Use this template" on GitHub).
-2. Create the workspace:
-   ```powershell
-   New-Item -ItemType Directory -Force src/<engagement>/request, src/<engagement>/delivery
-   ```
-3. Drop the client request into `src/<engagement>/request/`.
-4. Open Claude Code here and follow the workflow in `CLAUDE.md`.
-5. Clone the project's own repo into `src/<engagement>/<project-repo>/`.
+2. Open Claude Code here and run `/intake <engagement>` (e.g. `/intake acme-portal`). It creates the workspace, asks greenfield vs inherited, takes the request (from `src/<engagement>/request/` or by prompt), and produces the first brief.
+3. Follow the command it points you to next — greenfield: `/discovery-prep` → `/discovery-summary` → `/product-goal`; inherited: `/access-checklist` → `/system-assessment` → `/stabilization-goal`.
+4. For inherited projects, clone the project's own repo into `src/<engagement>/<project-repo>/` when access is granted (before `/system-assessment`).
 
 Everything under `src/` is gitignored, so this base never accumulates client data and can be reused across many projects.
 
@@ -43,4 +39,4 @@ On macOS/Linux use PowerShell 7 (`pwsh scripts/verify-scaffold.ps1`). The check 
 
 ## Deferred (future passes)
 
-Slash commands that orchestrate the agents, reusable skills, and plugin packaging are intentionally not included yet — see `docs/superpowers/specs/2026-06-10-ai-sdlc-playbook-scaffold-design.md`.
+The intake + discovery slash commands (`/intake` and the six discovery step commands) are built. Still deferred: commands for the remaining steps (backlog → planning → execution → review → retro → release / modernization), reusable skills, and plugin packaging — see `docs/superpowers/specs/`.

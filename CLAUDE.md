@@ -39,44 +39,54 @@ The authoritative step sequence lives in `playbook/PLAYBOOK.md` (§5 greenfield,
 
 ### Greenfield (new build)
 
-| Step | Scrum activity | Agent | Output template |
-|------|----------------|-------|-----------------|
-| 1 | Client request | `product-discovery` | `templates/greenfield/project-request-brief.md` |
-| 2 | Discovery prep | `product-discovery` | `templates/greenfield/discovery-workshop-plan.md` |
-| 3 | Discovery meetings | `product-discovery` | `templates/greenfield/discovery-meeting-summary.md` |
-| 4 | Product Goal | `product-discovery` | `templates/greenfield/product-goal-draft.md` |
-| 5 | Initial backlog | `product-backlog` | `templates/greenfield/initial-product-backlog-pack.md` |
-| 6 | Architecture foundation | `implementation` (+ `security-review`, `documentation`) | `templates/greenfield/architecture-technical-foundation-pack.md` |
-| 7 | Backlog refinement | `product-backlog` | `templates/shared/refined-story-pack.md` |
-| 8 | Sprint Planning | `scrum-planning` | `templates/shared/sprint-planning-support-pack.md` |
-| 9 | Sprint execution | `implementation` | `templates/shared/implementation-pack.md` |
-| 10 | Daily Scrum | `scrum-planning` | `templates/shared/daily-scrum-support-summary.md` |
-| 11 | Code review | `code-review` | `templates/shared/ai-pr-review-report.md` |
-| 12 | QA & testing | `qa-test-design` (+ `test-automation`) | `templates/shared/qa-test-pack.md` |
-| 13 | Sprint Review | `scrum-planning` | `templates/shared/sprint-review-pack.md` |
-| 14 | Retrospective | `retrospective-insights` | `templates/shared/retrospective-insights-pack.md` |
-| 15 | Release readiness | `devops` | `templates/shared/release-readiness-pack.md` |
+| Step | Scrum activity | Agent | Output template | Command |
+|------|----------------|-------|-----------------|---------|
+| 1 | Client request | `product-discovery` | `templates/greenfield/project-request-brief.md` | `/intake` |
+| 2 | Discovery prep | `product-discovery` | `templates/greenfield/discovery-workshop-plan.md` | `/discovery-prep` |
+| 3 | Discovery meetings | `product-discovery` | `templates/greenfield/discovery-meeting-summary.md` | `/discovery-summary` |
+| 4 | Product Goal | `product-discovery` | `templates/greenfield/product-goal-draft.md` | `/product-goal` |
+| 5 | Initial backlog | `product-backlog` | `templates/greenfield/initial-product-backlog-pack.md` | — (manual) |
+| 6 | Architecture foundation | `implementation` (+ `security-review`, `documentation`) | `templates/greenfield/architecture-technical-foundation-pack.md` | — (manual) |
+| 7 | Backlog refinement | `product-backlog` | `templates/shared/refined-story-pack.md` | — (manual) |
+| 8 | Sprint Planning | `scrum-planning` | `templates/shared/sprint-planning-support-pack.md` | — (manual) |
+| 9 | Sprint execution | `implementation` | `templates/shared/implementation-pack.md` | — (manual) |
+| 10 | Daily Scrum | `scrum-planning` | `templates/shared/daily-scrum-support-summary.md` | — (manual) |
+| 11 | Code review | `code-review` | `templates/shared/ai-pr-review-report.md` | — (manual) |
+| 12 | QA & testing | `qa-test-design` (+ `test-automation`) | `templates/shared/qa-test-pack.md` | — (manual) |
+| 13 | Sprint Review | `scrum-planning` | `templates/shared/sprint-review-pack.md` | — (manual) |
+| 14 | Retrospective | `retrospective-insights` | `templates/shared/retrospective-insights-pack.md` | — (manual) |
+| 15 | Release readiness | `devops` | `templates/shared/release-readiness-pack.md` | — (manual) |
 
 ### Inherited (existing / takeover)
 
-| Step | Focus | Agent | Output template |
-|------|-------|-------|-----------------|
-| 1 | Takeover request | `product-discovery` | `templates/inherited/takeover-request-brief.md` |
-| 2 | Access & information | `product-discovery` | `templates/inherited/access-information-checklist.md` |
-| 3 | System assessment | `implementation` | `templates/inherited/initial-system-assessment.md` |
-| 4 | Stabilization Goal | `product-discovery` | `templates/inherited/inherited-project-goal-draft.md` |
-| 5 | Business-rule recovery | `documentation` | `templates/inherited/business-rule-recovery-report.md` |
-| 6 | Codebase mapping | `implementation` | `templates/inherited/codebase-architecture-map.md` |
-| 7 | Stabilization backlog | `product-backlog` | `templates/inherited/stabilization-product-backlog.md` |
-| 8 | Backlog refinement | `product-backlog` | `templates/inherited/inherited-refined-story-pack.md` |
-| 9 | Sprint Planning | `scrum-planning` | `templates/inherited/inherited-sprint-planning-support-pack.md` |
-| 10 | Safe execution | `implementation` | `templates/inherited/safe-change-pack.md` |
-| 11 | Regression QA | `qa-test-design` (+ `test-automation`) | `templates/inherited/regression-test-pack.md` |
-| 12 | Sprint Review | `scrum-planning` | `templates/inherited/inherited-sprint-review-pack.md` |
-| 13 | Retrospective | `retrospective-insights` | `templates/inherited/inherited-retrospective-insights-pack.md` |
-| 14 | Modernization | `documentation` (+ Architect) | `templates/inherited/modernization-roadmap.md` |
+| Step | Focus | Agent | Output template | Command |
+|------|-------|-------|-----------------|---------|
+| 1 | Takeover request | `product-discovery` | `templates/inherited/takeover-request-brief.md` | `/intake` |
+| 2 | Access & information | `product-discovery` | `templates/inherited/access-information-checklist.md` | `/access-checklist` |
+| 3 | System assessment | `implementation` | `templates/inherited/initial-system-assessment.md` | `/system-assessment` |
+| 4 | Stabilization Goal | `product-discovery` | `templates/inherited/inherited-project-goal-draft.md` | `/stabilization-goal` |
+| 5 | Business-rule recovery | `documentation` | `templates/inherited/business-rule-recovery-report.md` | — (manual) |
+| 6 | Codebase mapping | `implementation` | `templates/inherited/codebase-architecture-map.md` | — (manual) |
+| 7 | Stabilization backlog | `product-backlog` | `templates/inherited/stabilization-product-backlog.md` | — (manual) |
+| 8 | Backlog refinement | `product-backlog` | `templates/inherited/inherited-refined-story-pack.md` | — (manual) |
+| 9 | Sprint Planning | `scrum-planning` | `templates/inherited/inherited-sprint-planning-support-pack.md` | — (manual) |
+| 10 | Safe execution | `implementation` | `templates/inherited/safe-change-pack.md` | — (manual) |
+| 11 | Regression QA | `qa-test-design` (+ `test-automation`) | `templates/inherited/regression-test-pack.md` | — (manual) |
+| 12 | Sprint Review | `scrum-planning` | `templates/inherited/inherited-sprint-review-pack.md` | — (manual) |
+| 13 | Retrospective | `retrospective-insights` | `templates/inherited/inherited-retrospective-insights-pack.md` | — (manual) |
+| 14 | Modernization | `documentation` (+ Architect) | `templates/inherited/modernization-roadmap.md` | — (manual) |
 
 Cross-cutting events that recur every sprint in both scenarios — code review, QA, Daily Scrum, security review, release readiness — draw from `templates/shared/`.
+
+## Slash commands
+
+The intake + discovery phase is automated by commands in `.claude/commands/`. Each takes the engagement slug as its argument, orchestrates in the main conversation (so it can ask you questions and track progress in `src/<eng>/engagement.md`), and delegates the actual artifact to the mapped agent.
+
+- `/intake <eng>` — bootstrap the engagement, classify greenfield/inherited, produce the first brief.
+- Greenfield: `/discovery-prep` → `/discovery-summary` → `/product-goal`.
+- Inherited: `/access-checklist` → `/system-assessment` → `/stabilization-goal`.
+
+Steps 5+ have no command yet — run their agent manually per the run-order tables above.
 
 ## Templates (output packs)
 
