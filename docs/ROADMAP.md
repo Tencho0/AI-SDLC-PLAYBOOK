@@ -18,8 +18,8 @@
 | **1 — Scaffold** | Foundation | `.docx`→`playbook/` Markdown, 12 agents, 30 templates, `CLAUDE.md` brain, `.gitignore`, `scripts/verify-scaffold.ps1` | ✅ Done |
 | **2 — Intake + Discovery** | Run-order steps 1–4, both tracks | `/intake` + `/discovery-prep` / `/discovery-summary` / `/product-goal` (GF) and `/access-checklist` / `/system-assessment` / `/stabilization-goal` (INH); `engagement.md` state file | ✅ Done |
 | **3 — Setup & Planning** | Steps 5–8 (GF) / 5–9 (INH) — *linear, once per engagement* | GF: `/initial-backlog`, `/architecture`, `/refine`, `/sprint-plan`. INH: `/recover-rules`, `/map-codebase`, `/stabilization-backlog`, `/refine`, `/sprint-plan` | ✅ Done |
-| **4 — Sprint Execution & QA** | Steps 9–12 (GF) / 10–11 (INH) — *recurring per ticket/PR* | execution, daily-scrum, code-review, QA commands. **Needs a new recurring-command shape first** (see Open decisions). | ⏭️ Next |
-| **5 — Review, Retro, Release / Modernization** | Steps 13–15 (GF) / 12–14 (INH) — *per sprint / milestone* | GF: sprint-review, retrospective, release-readiness. INH: sprint-review, retrospective, modernization-roadmap | 📋 Planned |
+| **4 — Sprint Execution & QA** | Steps 9–12 (GF) / 10–11 (INH) — *recurring per ticket/PR* | `/execution`, `/daily-scrum`, `/pr-review`, `/qa` — new recurring-command shape (item-keyed artifacts under `delivery/<activity>/`, append-only `## Activity log`, `phase`/`sprint` markers) | ✅ Done |
+| **5 — Review, Retro, Release / Modernization** | Steps 13–15 (GF) / 12–14 (INH) — *per sprint / milestone* | GF: sprint-review, retrospective, release-readiness. INH: sprint-review, retrospective, modernization-roadmap | ⏭️ Next |
 | **6 — Skills** *(optional)* | Cross-cutting | Reusable multi-step skills (e.g. a `/status` / `/next` engagement navigator) | 💡 Backlog |
 | **7 — Plugin packaging** *(optional)* | Portability | Package agents + commands as an installable Claude Code plugin so they drop into any repo without cloning the base | 💡 Backlog |
 
@@ -31,11 +31,12 @@ Delete this file once **Passes 3, 4, and 5 are merged** — i.e. every step in b
 
 ## Open decisions (resolve before the pass that needs them)
 
-- **Recurring-command model (Pass 4):** code-review / QA / execution run many times per engagement; they should be parameterized by ticket / PR / sprint rather than ticking a one-time `engagement.md` checklist. Short brainstorm before building Pass 4.
-- **`engagement.md` evolution:** as later phases land, the state file likely needs a "current sprint / phase" notion beyond the linear step list.
+- **Recurring-command model (Pass 4) — RESOLVED:** recurring commands are item-keyed (ticket / PR / story / date) and append to an `## Activity log` rather than ticking the linear checklist. See the Pass-4 spec.
+- **`engagement.md` evolution — RESOLVED:** the state file gained `phase: execution` and a `sprint:` frontmatter marker (set on first recurring run; sprint bumped manually) plus the append-only `## Activity log`, leaving the linear `## Completed steps` checklist intact.
 
 ## Status log
 
 - Pass 1 merged + pushed; repo marked as a GitHub template.
 - Pass 2 merged + pushed; built, audited (fidelity/consistency/usability), and code-reviewed (15 findings fixed) at the code level.
 - Pass 3 built on branch `setup-planning-commands`: 7 setup & planning commands added (`/initial-backlog`, `/architecture`, `/recover-rules`, `/map-codebase`, `/stabilization-backlog`, scenario-aware `/refine` + `/sprint-plan`); `/intake` seed extended to the full linear chain (GF 1–8 / INH 1–9); verifier extended to 14 commands and green; audited and code-reviewed. Roadmap kept (deletion waits for Passes 4–5).
+- Pass 4 built on branch `sprint-execution-qa-commands`: 4 recurring sprint commands added (scenario-aware `/execution` + `/qa`, shared `/daily-scrum` + `/pr-review`); new recurring-command shape (item-keyed artifacts under `delivery/<activity>/`, append-only `## Activity log`, `phase`/`sprint` frontmatter markers); verifier extended to 18 commands and green; audited and code-reviewed. Roadmap kept (deletion waits for Pass 5).
