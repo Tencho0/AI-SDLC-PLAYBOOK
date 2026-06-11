@@ -11,6 +11,6 @@ You are running the **/stabilization-goal** command for the AI-SDLC playbook. En
 4. **Check prerequisite.** Confirm `src/<eng>/delivery/initial-system-assessment.md` exists (step 3 done). If unmet, STOP with: "System assessment missing — run `/system-assessment <eng>` first.". Produce nothing.
 5. **Delegate to the agent.** Use the Task tool to spawn the **product-discovery** subagent (`subagent_type: product-discovery`). Instruct it to: read all inherited artifacts in `src/<eng>/delivery/` (takeover brief, access checklist, system assessment); fill the template `templates/inherited/inherited-project-goal-draft.md`; write the completed artifact to `src/<eng>/delivery/inherited-project-goal-draft.md`; and follow the template's governance footer (separate Observed facts / Assumptions / Risks / Recommendations / Open questions).
 6. **Update state.** In `src/<eng>/engagement.md`, change step 4's line to `- [x] 4 Inherited Project Goal Draft — delivery/inherited-project-goal-draft.md`.
-7. **Report next.** Tell the user what was produced and the next action: Discovery/assessment phase complete. The next step is Business Rule Recovery (step 5); its command isn't built yet — run the `documentation` agent manually per `CLAUDE.md`'s run-order table.
+7. **Report next.** Tell the user what was produced and the next action: Discovery/assessment phase complete. Run `/recover-rules <eng>`.
 
 You orchestrate only — the agent produces the artifact and a human reviews it. Never paste secrets or production data.

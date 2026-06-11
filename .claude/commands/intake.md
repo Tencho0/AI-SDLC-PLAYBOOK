@@ -44,7 +44,7 @@ Work through these steps in order. Stop and ask the user wherever a step says to
      - [ ] 8 Inherited Refined Story Pack
      - [ ] 9 Inherited Sprint Planning Support Pack
      ```
-   - **Re-run** (`<rerun>` true): do NOT reset progress. Leave the frontmatter and every already-checked step exactly as they were — only confirm step 1 stays checked and points at the brief you just regenerated. Preserve steps 2–4 and their checkmarks as-is.
+   - **Re-run** (`<rerun>` true): do NOT reset progress. Leave the frontmatter and every already-checked step exactly as they were — only confirm step 1 stays checked and points at the brief you just regenerated. Preserve every later step (2 onward, through the end of the seeded list) and its checkmark exactly as-is.
 
 7. **Report next step.** Summarize what was produced (and where), then tell the user the next command: `/discovery-prep <eng>` for greenfield, or `/access-checklist <eng>` for inherited. On a re-run, also remind them which later steps are already complete so they don't redo them.
 

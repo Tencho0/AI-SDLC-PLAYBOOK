@@ -11,6 +11,6 @@ You are running the **/product-goal** command for the AI-SDLC playbook. Engageme
 4. **Check prerequisite.** Confirm `src/<eng>/delivery/discovery-meeting-summary.md` exists (step 3 done). If unmet, STOP with: "Discovery summary missing — run `/discovery-summary <eng>` first.". Produce nothing.
 5. **Delegate to the agent.** Use the Task tool to spawn the **product-discovery** subagent (`subagent_type: product-discovery`). Instruct it to: read all discovery artifacts in `src/<eng>/delivery/` (brief, workshop plan, meeting summary); fill the template `templates/greenfield/product-goal-draft.md`; write the completed artifact to `src/<eng>/delivery/product-goal-draft.md`; and follow the template's governance footer (separate Observed facts / Assumptions / Risks / Recommendations / Open questions).
 6. **Update state.** In `src/<eng>/engagement.md`, change step 4's line to `- [x] 4 Product Goal Draft — delivery/product-goal-draft.md`.
-7. **Report next.** Tell the user what was produced and the next action: Discovery phase complete. The next step is the Initial Product Backlog (step 5); its command isn't built yet — run the `product-backlog` agent manually per `CLAUDE.md`'s run-order table.
+7. **Report next.** Tell the user what was produced and the next action: Discovery phase complete. Run `/initial-backlog <eng>`.
 
 You orchestrate only — the agent produces the artifact and a human reviews it. Never paste secrets or production data.
