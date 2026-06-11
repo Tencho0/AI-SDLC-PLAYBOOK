@@ -76,7 +76,7 @@ The authoritative step sequence lives in `playbook/PLAYBOOK.md` (§5 greenfield,
 | 13 | Retrospective | `retrospective-insights` | `templates/inherited/inherited-retrospective-insights-pack.md` | — (manual) |
 | 14 | Modernization | `documentation` (+ Architect) | `templates/inherited/modernization-roadmap.md` | — (manual) |
 
-Cross-cutting events that recur every sprint in both scenarios — code review, QA, Daily Scrum, security review, release readiness — draw from `templates/shared/`. The recurring sprint commands `/execution`, `/daily-scrum`, `/pr-review`, and `/qa` drive these for both tracks (see Slash commands below).
+Cross-cutting events that recur every sprint in both scenarios — code review, QA, Daily Scrum, security review, release readiness — draw from `templates/shared/`. Of these, code review, QA, and the Daily Scrum now have recurring commands (`/pr-review`, `/qa`, `/daily-scrum`), alongside sprint execution (`/execution`), for both tracks; security review and release readiness remain manual (see Slash commands below).
 
 ## Slash commands
 
