@@ -17,9 +17,23 @@ Work through these steps in order. Stop and ask the user wherever a step says to
 
 5. **Produce the first brief — delegate.** Use the Task tool to spawn the **product-discovery** subagent (`subagent_type: product-discovery`). Instruct it to read the request in `src/<eng>/request/`, fill the template — `templates/greenfield/project-request-brief.md` for greenfield or `templates/inherited/takeover-request-brief.md` for inherited — and write the completed artifact to `src/<eng>/delivery/project-request-brief.md` (greenfield) or `src/<eng>/delivery/takeover-request-brief.md` (inherited), following the template's governance footer.
 
-6. **Write the state file.** Create `src/<eng>/engagement.md` with frontmatter `engagement: <eng>`, `scenario: <chosen>`, `phase: discovery`, `created: <today's date from the environment>`, then a `## Completed steps` checklist seeded for the chosen scenario with step 1 checked and pointing at the artifact from step 5:
-   - greenfield: `1 Project Request Brief`, `2 Discovery Workshop Plan`, `3 Discovery Meeting Summary`, `4 Product Goal Draft`
-   - inherited: `1 Takeover Request Brief`, `2 Access & Information Checklist`, `3 Initial System Assessment`, `4 Inherited Project Goal Draft`
+6. **Write the state file.** Create `src/<eng>/engagement.md` with frontmatter `engagement: <eng>`, `scenario: <chosen>`, `phase: discovery`, `created: <today's date from the environment>`, then a `## Completed steps` checklist using EXACTLY this line format — step 1 checked with its output path, the rest unchecked.
+   Greenfield:
+   ```
+   ## Completed steps
+   - [x] 1 Project Request Brief — delivery/project-request-brief.md
+   - [ ] 2 Discovery Workshop Plan
+   - [ ] 3 Discovery Meeting Summary
+   - [ ] 4 Product Goal Draft
+   ```
+   Inherited:
+   ```
+   ## Completed steps
+   - [x] 1 Takeover Request Brief — delivery/takeover-request-brief.md
+   - [ ] 2 Access & Information Checklist
+   - [ ] 3 Initial System Assessment
+   - [ ] 4 Inherited Project Goal Draft
+   ```
 
 7. **Report next step.** Summarize what was produced (and where), then tell the user the next command: `/discovery-prep <eng>` for greenfield, or `/access-checklist <eng>` for inherited.
 
