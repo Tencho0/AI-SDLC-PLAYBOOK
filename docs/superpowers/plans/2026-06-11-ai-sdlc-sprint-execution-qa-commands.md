@@ -452,18 +452,18 @@ Expected: `OK - command template + agent references resolve`.
 
 - [ ] **Step 3: Manual smoke test (document the result)**
 
-Confirm the new recurring shape works on a throwaway greenfield engagement carried through `/sprint-plan`:
+Confirm the new recurring shape works on a throwaway greenfield engagement carried through `/sprint-plan`. **Use a slug that passes the slug rule `^[a-z0-9][a-z0-9-]*$`** — e.g. `smoke4`, NOT `_smoke4` (a leading underscore is correctly rejected by every command's step 1):
 ```powershell
-New-Item -ItemType Directory -Force src/_smoke4/request | Out-Null
-Set-Content src/_smoke4/request/req.md "Client wants a new internal tool to track field-service jobs." -Encoding utf8
+New-Item -ItemType Directory -Force src/smoke4/request | Out-Null
+Set-Content src/smoke4/request/req.md "Client wants a new internal tool to track field-service jobs." -Encoding utf8
 ```
-In Claude Code: run `/intake _smoke4` (choose greenfield), then (to reach the soft-gate's prerequisite quickly) hand-create `src/_smoke4/delivery/sprint-planning-support-pack.md` with any placeholder content. Then:
-- Run `/execution _smoke4 PROJ-1` → confirm it writes `src/_smoke4/delivery/execution/PROJ-1.md`, sets `phase: execution` + `sprint: 1` in `engagement.md` frontmatter, and appends an `## Activity log` line `… · execution · PROJ-1 → delivery/execution/PROJ-1.md`.
-- Run `/daily-scrum _smoke4` (no date) → confirm it writes `src/_smoke4/delivery/daily-scrum/<today>.md` and appends a log line.
-- Confirm the linear `## Completed steps` checklist is unchanged, and `git status` shows nothing under `src/_smoke4/` (gitignored).
+In Claude Code: run `/intake smoke4` (choose greenfield), then (to reach the soft-gate's prerequisite quickly) hand-create `src/smoke4/delivery/sprint-planning-support-pack.md` with any placeholder content. Then:
+- Run `/execution smoke4 PROJ-1` → confirm it writes `src/smoke4/delivery/execution/PROJ-1.md`, sets `phase: execution` + `sprint: 1` in `engagement.md` frontmatter, and appends an `## Activity log` line `… · execution · PROJ-1 → delivery/execution/PROJ-1.md`.
+- Run `/daily-scrum smoke4` (no date) → confirm it writes `src/smoke4/delivery/daily-scrum/<today>.md` and appends a log line.
+- Confirm the linear `## Completed steps` checklist is unchanged, and `git status` shows nothing under `src/smoke4/` (gitignored).
 Also confirm the soft gate: on a fresh engagement with no sprint-planning pack, `/execution` WARNS but still produces the artifact. Clean up:
 ```powershell
-Remove-Item -Recurse -Force src/_smoke4
+Remove-Item -Recurse -Force src/smoke4
 ```
 
 - [ ] **Step 4: Report completion**
