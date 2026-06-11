@@ -45,10 +45,10 @@ The authoritative step sequence lives in `playbook/PLAYBOOK.md` (§5 greenfield,
 | 2 | Discovery prep | `product-discovery` | `templates/greenfield/discovery-workshop-plan.md` | `/discovery-prep` |
 | 3 | Discovery meetings | `product-discovery` | `templates/greenfield/discovery-meeting-summary.md` | `/discovery-summary` |
 | 4 | Product Goal | `product-discovery` | `templates/greenfield/product-goal-draft.md` | `/product-goal` |
-| 5 | Initial backlog | `product-backlog` | `templates/greenfield/initial-product-backlog-pack.md` | — (manual) |
-| 6 | Architecture foundation | `implementation` (+ `security-review`, `documentation`) | `templates/greenfield/architecture-technical-foundation-pack.md` | — (manual) |
-| 7 | Backlog refinement | `product-backlog` | `templates/shared/refined-story-pack.md` | — (manual) |
-| 8 | Sprint Planning | `scrum-planning` | `templates/shared/sprint-planning-support-pack.md` | — (manual) |
+| 5 | Initial backlog | `product-backlog` | `templates/greenfield/initial-product-backlog-pack.md` | `/initial-backlog` |
+| 6 | Architecture foundation | `implementation` (+ `security-review`, `documentation`) | `templates/greenfield/architecture-technical-foundation-pack.md` | `/architecture` |
+| 7 | Backlog refinement | `product-backlog` | `templates/shared/refined-story-pack.md` | `/refine` |
+| 8 | Sprint Planning | `scrum-planning` | `templates/shared/sprint-planning-support-pack.md` | `/sprint-plan` |
 | 9 | Sprint execution | `implementation` | `templates/shared/implementation-pack.md` | — (manual) |
 | 10 | Daily Scrum | `scrum-planning` | `templates/shared/daily-scrum-support-summary.md` | — (manual) |
 | 11 | Code review | `code-review` | `templates/shared/ai-pr-review-report.md` | — (manual) |
@@ -65,11 +65,11 @@ The authoritative step sequence lives in `playbook/PLAYBOOK.md` (§5 greenfield,
 | 2 | Access & information | `product-discovery` | `templates/inherited/access-information-checklist.md` | `/access-checklist` |
 | 3 | System assessment | `implementation` | `templates/inherited/initial-system-assessment.md` | `/system-assessment` |
 | 4 | Stabilization Goal | `product-discovery` | `templates/inherited/inherited-project-goal-draft.md` | `/stabilization-goal` |
-| 5 | Business-rule recovery | `documentation` | `templates/inherited/business-rule-recovery-report.md` | — (manual) |
-| 6 | Codebase mapping | `implementation` | `templates/inherited/codebase-architecture-map.md` | — (manual) |
-| 7 | Stabilization backlog | `product-backlog` | `templates/inherited/stabilization-product-backlog.md` | — (manual) |
-| 8 | Backlog refinement | `product-backlog` | `templates/inherited/inherited-refined-story-pack.md` | — (manual) |
-| 9 | Sprint Planning | `scrum-planning` | `templates/inherited/inherited-sprint-planning-support-pack.md` | — (manual) |
+| 5 | Business-rule recovery | `documentation` | `templates/inherited/business-rule-recovery-report.md` | `/recover-rules` |
+| 6 | Codebase mapping | `implementation` | `templates/inherited/codebase-architecture-map.md` | `/map-codebase` |
+| 7 | Stabilization backlog | `product-backlog` | `templates/inherited/stabilization-product-backlog.md` | `/stabilization-backlog` |
+| 8 | Backlog refinement | `product-backlog` | `templates/inherited/inherited-refined-story-pack.md` | `/refine` |
+| 9 | Sprint Planning | `scrum-planning` | `templates/inherited/inherited-sprint-planning-support-pack.md` | `/sprint-plan` |
 | 10 | Safe execution | `implementation` | `templates/inherited/safe-change-pack.md` | — (manual) |
 | 11 | Regression QA | `qa-test-design` (+ `test-automation`) | `templates/inherited/regression-test-pack.md` | — (manual) |
 | 12 | Sprint Review | `scrum-planning` | `templates/inherited/inherited-sprint-review-pack.md` | — (manual) |
@@ -80,13 +80,13 @@ Cross-cutting events that recur every sprint in both scenarios — code review, 
 
 ## Slash commands
 
-The intake + discovery phase is automated by commands in `.claude/commands/`. Each takes the engagement slug as its argument, orchestrates in the main conversation (so it can ask you questions and track progress in `src/<eng>/engagement.md`), and delegates the actual artifact to the mapped agent.
+The intake + discovery and setup + planning phases are automated by commands in `.claude/commands/`. Each takes the engagement slug as its argument, orchestrates in the main conversation (so it can ask you questions and track progress in `src/<eng>/engagement.md`), and delegates the actual artifact to the mapped agent.
 
 - `/intake <eng>` — bootstrap the engagement, classify greenfield/inherited, produce the first brief.
-- Greenfield: `/discovery-prep` → `/discovery-summary` → `/product-goal`.
-- Inherited: `/access-checklist` → `/system-assessment` → `/stabilization-goal`.
+- Greenfield discovery → setup/planning: `/discovery-prep` → `/discovery-summary` → `/product-goal` → `/initial-backlog` → `/architecture` → `/refine` → `/sprint-plan`.
+- Inherited discovery → setup/planning: `/access-checklist` → `/system-assessment` → `/stabilization-goal` → `/recover-rules` → `/map-codebase` → `/stabilization-backlog` → `/refine` → `/sprint-plan`.
 
-Steps 5+ have no command yet — run their agent manually per the run-order tables above.
+`/refine` and `/sprint-plan` are scenario-aware — they read `engagement.md` and pick the right template for the track. The recurring per-sprint steps beyond planning (greenfield steps 9+, inherited steps 10+) have no command yet — run their agents manually per the run-order tables above.
 
 ## Templates (output packs)
 
