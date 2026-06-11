@@ -76,7 +76,9 @@ foreach ($f in $tplFiles) {
 
 # 4. Commands — required set present; each DISCOVERED command has description + argument-hint
 $expectedCmds = 'intake','discovery-prep','discovery-summary','product-goal',
-                'access-checklist','system-assessment','stabilization-goal'
+                'access-checklist','system-assessment','stabilization-goal',
+                'initial-backlog','architecture','recover-rules','map-codebase',
+                'stabilization-backlog','refine','sprint-plan'
 $cmdFiles = @(Get-ChildItem (Join-Path $root '.claude/commands') -Filter *.md -ErrorAction SilentlyContinue)
 $cmdNames = @($cmdFiles | ForEach-Object { $_.BaseName })
 foreach ($c in $expectedCmds) { Check ($cmdNames -contains $c) "command present: $c" }
