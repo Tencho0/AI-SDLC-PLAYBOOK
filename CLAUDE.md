@@ -76,7 +76,7 @@ The authoritative step sequence lives in `playbook/PLAYBOOK.md` (§5 greenfield,
 | 13 | Retrospective | `retrospective-insights` | `templates/inherited/inherited-retrospective-insights-pack.md` | `/retro` |
 | 14 | Modernization | `documentation` (+ Architect) | `templates/inherited/modernization-roadmap.md` | `/modernize` |
 
-Cross-cutting events that recur every sprint in both scenarios — code review, QA, Daily Scrum, security review, release readiness — draw from `templates/shared/`. Of these, code review, QA, the Daily Scrum, and release readiness now have commands (`/pr-review`, `/qa`, `/daily-scrum`, `/release-readiness`), alongside sprint execution (`/execution`); only security review remains without a command (see Slash commands below).
+Cross-cutting events that recur every sprint in both scenarios — code review, QA, Daily Scrum, security review, release readiness — draw from `templates/shared/`. All of them now have commands — `/pr-review`, `/qa`, `/daily-scrum`, `/security-review`, `/release-readiness` — alongside sprint execution (`/execution`), for both tracks (see Slash commands below).
 
 ## Slash commands
 
@@ -87,8 +87,9 @@ The intake + discovery, setup + planning, and recurring sprint-execution + QA ph
 - Inherited discovery → setup/planning: `/access-checklist` → `/system-assessment` → `/stabilization-goal` → `/recover-rules` → `/map-codebase` → `/stabilization-backlog` → `/refine` → `/sprint-plan`.
 - Recurring per-sprint (both scenarios): `/execution <eng> <ticket>`, `/daily-scrum <eng> [date]`, `/pr-review <eng> <pr>`, `/qa <eng> <story>` — run repeatedly, keyed by ticket / PR / story / date. They write item-keyed artifacts under `src/<eng>/delivery/<activity>/` and append to an `## Activity log` in `engagement.md` rather than ticking the linear checklist.
 - Sprint wrap-up: `/sprint-review <eng> [sprint]` → `/retro <eng> [sprint]` (both scenarios, keyed by sprint number), then `/release-readiness <eng> <release>` (greenfield) or `/modernize <eng>` (inherited).
+- Cross-cutting (both scenarios, any phase): `/security-review <eng> [target]` — security-posture review for a target (`baseline`, a PR, a release); keyed by target, defaults to `baseline`. It does not require sprint planning and does not change the `phase`/`sprint` markers.
 
-`/refine`, `/sprint-plan`, `/execution`, `/qa`, `/sprint-review`, and `/retro` are scenario-aware — they read `engagement.md` and pick the right template for the track; `/daily-scrum` and `/pr-review` are shared; `/release-readiness` (greenfield) and `/modernize` (inherited) are single-scenario with a guard that points to the other. The recurring commands set `phase: execution` and a `sprint:` marker on first run; to start a new sprint, bump `sprint:` in `engagement.md`. Every step in the run-order tables now has a command — only the optional `security-review` command, reusable skills, and plugin packaging remain unbuilt.
+`/refine`, `/sprint-plan`, `/execution`, `/qa`, `/sprint-review`, and `/retro` are scenario-aware — they read `engagement.md` and pick the right template for the track; `/daily-scrum`, `/pr-review`, and `/security-review` are shared; `/release-readiness` (greenfield) and `/modernize` (inherited) are single-scenario with a guard that points to the other. The recurring sprint-loop commands set `phase: execution` and a `sprint:` marker on first run (except `/security-review`, which is cross-phase and leaves them untouched); to start a new sprint, bump `sprint:` in `engagement.md`. Every run-order step and cross-cutting event now has a command — only reusable skills (e.g. a `/status`–`/next` navigator) and plugin packaging remain unbuilt.
 
 ## Templates (output packs)
 
