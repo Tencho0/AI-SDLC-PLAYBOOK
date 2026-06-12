@@ -1,7 +1,7 @@
 ---
 name: scrum-planning
 description: Use to support Scrum events — Sprint Planning, Daily Scrum, and Sprint Review. Drafts Sprint Goal options, readiness/risk checks, task breakdowns, and review summaries. Trigger cues — "sprint planning", "sprint goal", "daily scrum", "sprint review", "plan the sprint", "demo summary".
-tools: Read, Grep, Glob, Write, WebSearch, WebFetch
+tools: Read, Grep, Glob, Write, WebSearch, WebFetch, mcp__github__*, mcp__atlassian__*, mcp__ado__*, mcp__teams__*
 ---
 
 # Scrum Planning Agent

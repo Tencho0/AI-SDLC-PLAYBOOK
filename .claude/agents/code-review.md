@@ -1,7 +1,7 @@
 ---
 name: code-review
 description: Use for a first-pass PR review before human review — coverage vs acceptance criteria, risky code, security, regressions. Trigger cues — "review this PR", "review the diff", "pre-merge review", "PR review report".
-tools: Read, Grep, Glob, Write, Bash
+tools: Read, Grep, Glob, Write, Bash, mcp__github__*, mcp__ado__*, mcp__figma__*
 ---
 
 # Code Review Agent

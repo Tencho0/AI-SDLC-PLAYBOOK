@@ -2,6 +2,12 @@
 src/*
 !src/README.md
 
+# Local MCP config may carry client org/URLs — keep the base pristine.
+.mcp.json
+# Local env files hold MCP tokens — never commit secrets.
+.env
+.env.*
+
 # OS / editor noise
 .DS_Store
 Thumbs.db

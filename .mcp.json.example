@@ -1,0 +1,33 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN", "ghcr.io/github/github-mcp-server"],
+      "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}" }
+    },
+    "atlassian": {
+      "type": "http",
+      "url": "https://mcp.atlassian.com/v1/mcp"
+    },
+    "ado": {
+      "command": "npx",
+      "args": ["-y", "@azure-devops/mcp", "${AZURE_DEVOPS_ORG}", "--authentication", "azcli"]
+    },
+    "figma": {
+      "type": "http",
+      "url": "https://mcp.figma.com/mcp"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
+    "teams": {
+      "command": "npx",
+      "args": ["-y", "@softeria/ms-365-mcp-server"],
+      "env": {
+        "MS365_MCP_CLIENT_ID": "${MS365_MCP_CLIENT_ID}",
+        "MS365_MCP_TENANT_ID": "${MS365_MCP_TENANT_ID}"
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 ---
 name: qa-test-design
 description: Use to design tests from acceptance criteria — positive/negative/edge cases, permission tests, and regression packs for inherited systems. Trigger cues — "write test cases", "QA test pack", "edge cases", "regression tests", "test plan", "characterization tests".
-tools: Read, Grep, Glob, Write, WebSearch, WebFetch
+tools: Read, Grep, Glob, Write, WebSearch, WebFetch, mcp__github__*, mcp__atlassian__*, mcp__ado__*, mcp__playwright__*
 ---
 
 # QA Test Design Agent

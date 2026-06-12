@@ -1,7 +1,7 @@
 ---
 name: documentation
 description: Use to create/update project documentation — README, project CLAUDE.md, ADRs, architecture docs, business-rule recovery, and the modernization roadmap. Trigger cues — "write the README", "document this", "create ADR", "recover business rules", "modernization roadmap", "architecture docs".
-tools: Read, Grep, Glob, Write, Edit, WebSearch, WebFetch
+tools: Read, Grep, Glob, Write, Edit, WebSearch, WebFetch, mcp__github__*, mcp__atlassian__*, mcp__ado__*
 ---
 
 # Documentation Agent

@@ -1,7 +1,7 @@
 ---
 name: devops
 description: Use for CI/CD, environments, deployment, and release readiness — deployment checklists, rollback plans, log/failure analysis. Trigger cues — "set up CI/CD", "deployment checklist", "release readiness", "rollback plan", "analyze CI failure", "pipeline".
-tools: Read, Grep, Glob, Write, Edit, Bash, WebSearch, WebFetch
+tools: Read, Grep, Glob, Write, Edit, Bash, WebSearch, WebFetch, mcp__github__*, mcp__ado__*
 ---
 
 # DevOps Agent

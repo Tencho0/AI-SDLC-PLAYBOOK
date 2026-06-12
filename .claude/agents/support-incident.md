@@ -1,7 +1,7 @@
 ---
 name: support-incident
 description: Use to triage support tickets and incidents — classify, find probable cause, suggest next steps, and link to regression coverage. Trigger cues — "triage this ticket", "incident", "production issue", "bug report triage", "support queue".
-tools: Read, Grep, Glob, Write, WebSearch, WebFetch
+tools: Read, Grep, Glob, Write, WebSearch, WebFetch, mcp__github__*, mcp__atlassian__*, mcp__ado__*, mcp__teams__*
 ---
 
 # Support & Incident Agent

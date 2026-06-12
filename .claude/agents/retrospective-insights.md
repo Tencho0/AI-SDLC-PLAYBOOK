@@ -1,7 +1,7 @@
 ---
 name: retrospective-insights
 description: Use after a Sprint to analyze patterns — recurring blockers, estimation misses, quality/communication issues — and propose improvement experiments. Trigger cues — "retrospective", "retro insights", "what slowed us down", "analyze the sprint", "improvement actions".
-tools: Read, Grep, Glob, Write, WebSearch, WebFetch
+tools: Read, Grep, Glob, Write, WebSearch, WebFetch, mcp__github__*, mcp__atlassian__*, mcp__ado__*, mcp__teams__*
 ---
 
 # Retrospective Insights Agent
