@@ -2125,6 +2125,8 @@ Introduce controlled integrations with:
 5. Monitoring/logging tools
 6. Documentation repositories
 
+The playbook ships a recommended MCP integration layer that realizes most of these categories — six servers, pre-wired to the agents that fit their role: GitHub (`mcp__github__*`, repos/issues/PRs/code search), Atlassian (`mcp__atlassian__*`, Jira issues + Confluence pages), Azure DevOps (`mcp__ado__*`, repos/boards/pipelines/wiki), Figma (`mcp__figma__*`, design files, read), Playwright (`mcp__playwright__*`, browser automation, E2E, screenshots), and Microsoft Teams (`mcp__teams__*`, messages/channels, read, plus drafts). See [playbook/mcp.md](mcp.md) for the server reference, the servers→agents map, and per-clone setup.
+
 Rules:
 
 1. Start read-only where possible

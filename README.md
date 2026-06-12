@@ -41,7 +41,16 @@ On macOS/Linux use PowerShell 7 (`pwsh scripts/verify-scaffold.ps1`). The check 
 ## Integrations (optional)
 
 Copy `.mcp.json.example` → `.mcp.json`, trim to the servers you need, supply credentials locally,
-and the right agents can call those servers' tools. Full instructions: `playbook/mcp.md`.
+and the right agents can call those servers' tools. Six servers are pre-wired:
+
+- **GitHub** (`mcp__github__*`) — repos, issues, PRs, code search
+- **Atlassian** (`mcp__atlassian__*`) — Jira issues + Confluence pages
+- **Azure DevOps** (`mcp__ado__*`) — repos, boards, pipelines, wiki
+- **Figma** (`mcp__figma__*`) — design files (read)
+- **Playwright** (`mcp__playwright__*`) — browser automation, E2E, screenshots
+- **Microsoft Teams** (`mcp__teams__*`) — messages/channels (read), drafts
+
+Full instructions, the servers → agents map, and per-server setup: [playbook/mcp.md](playbook/mcp.md).
 
 ## Deferred (future passes)
 
