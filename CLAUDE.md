@@ -53,9 +53,9 @@ The authoritative step sequence lives in `playbook/PLAYBOOK.md` (§5 greenfield,
 | 10 | Daily Scrum | `scrum-planning` | `templates/shared/daily-scrum-support-summary.md` | `/daily-scrum` |
 | 11 | Code review | `code-review` | `templates/shared/ai-pr-review-report.md` | `/pr-review` |
 | 12 | QA & testing | `qa-test-design` (+ `test-automation`) | `templates/shared/qa-test-pack.md` | `/qa` |
-| 13 | Sprint Review | `scrum-planning` | `templates/shared/sprint-review-pack.md` | — (manual) |
-| 14 | Retrospective | `retrospective-insights` | `templates/shared/retrospective-insights-pack.md` | — (manual) |
-| 15 | Release readiness | `devops` | `templates/shared/release-readiness-pack.md` | — (manual) |
+| 13 | Sprint Review | `scrum-planning` | `templates/shared/sprint-review-pack.md` | `/sprint-review` |
+| 14 | Retrospective | `retrospective-insights` | `templates/shared/retrospective-insights-pack.md` | `/retro` |
+| 15 | Release readiness | `devops` | `templates/shared/release-readiness-pack.md` | `/release-readiness` |
 
 ### Inherited (existing / takeover)
 
@@ -72,11 +72,11 @@ The authoritative step sequence lives in `playbook/PLAYBOOK.md` (§5 greenfield,
 | 9 | Sprint Planning | `scrum-planning` | `templates/inherited/inherited-sprint-planning-support-pack.md` | `/sprint-plan` |
 | 10 | Safe execution | `implementation` | `templates/inherited/safe-change-pack.md` | `/execution` |
 | 11 | Regression QA | `qa-test-design` (+ `test-automation`) | `templates/inherited/regression-test-pack.md` | `/qa` |
-| 12 | Sprint Review | `scrum-planning` | `templates/inherited/inherited-sprint-review-pack.md` | — (manual) |
-| 13 | Retrospective | `retrospective-insights` | `templates/inherited/inherited-retrospective-insights-pack.md` | — (manual) |
-| 14 | Modernization | `documentation` (+ Architect) | `templates/inherited/modernization-roadmap.md` | — (manual) |
+| 12 | Sprint Review | `scrum-planning` | `templates/inherited/inherited-sprint-review-pack.md` | `/sprint-review` |
+| 13 | Retrospective | `retrospective-insights` | `templates/inherited/inherited-retrospective-insights-pack.md` | `/retro` |
+| 14 | Modernization | `documentation` (+ Architect) | `templates/inherited/modernization-roadmap.md` | `/modernize` |
 
-Cross-cutting events that recur every sprint in both scenarios — code review, QA, Daily Scrum, security review, release readiness — draw from `templates/shared/`. Of these, code review, QA, and the Daily Scrum now have recurring commands (`/pr-review`, `/qa`, `/daily-scrum`), alongside sprint execution (`/execution`), for both tracks; security review and release readiness remain manual (see Slash commands below).
+Cross-cutting events that recur every sprint in both scenarios — code review, QA, Daily Scrum, security review, release readiness — draw from `templates/shared/`. Of these, code review, QA, the Daily Scrum, and release readiness now have commands (`/pr-review`, `/qa`, `/daily-scrum`, `/release-readiness`), alongside sprint execution (`/execution`); only security review remains without a command (see Slash commands below).
 
 ## Slash commands
 
@@ -86,8 +86,9 @@ The intake + discovery, setup + planning, and recurring sprint-execution + QA ph
 - Greenfield discovery → setup/planning: `/discovery-prep` → `/discovery-summary` → `/product-goal` → `/initial-backlog` → `/architecture` → `/refine` → `/sprint-plan`.
 - Inherited discovery → setup/planning: `/access-checklist` → `/system-assessment` → `/stabilization-goal` → `/recover-rules` → `/map-codebase` → `/stabilization-backlog` → `/refine` → `/sprint-plan`.
 - Recurring per-sprint (both scenarios): `/execution <eng> <ticket>`, `/daily-scrum <eng> [date]`, `/pr-review <eng> <pr>`, `/qa <eng> <story>` — run repeatedly, keyed by ticket / PR / story / date. They write item-keyed artifacts under `src/<eng>/delivery/<activity>/` and append to an `## Activity log` in `engagement.md` rather than ticking the linear checklist.
+- Sprint wrap-up: `/sprint-review <eng> [sprint]` → `/retro <eng> [sprint]` (both scenarios, keyed by sprint number), then `/release-readiness <eng> <release>` (greenfield) or `/modernize <eng>` (inherited).
 
-`/refine`, `/sprint-plan`, `/execution`, and `/qa` are scenario-aware — they read `engagement.md` and pick the right template for the track (`/daily-scrum` and `/pr-review` are shared). The recurring commands set `phase: execution` and a `sprint:` marker on first run; to start a new sprint, bump `sprint:` in `engagement.md`. The remaining per-sprint steps (greenfield steps 13+, inherited steps 12+ — sprint review, retrospective, release / modernization) have no command yet — run their agents manually per the run-order tables above.
+`/refine`, `/sprint-plan`, `/execution`, `/qa`, `/sprint-review`, and `/retro` are scenario-aware — they read `engagement.md` and pick the right template for the track; `/daily-scrum` and `/pr-review` are shared; `/release-readiness` (greenfield) and `/modernize` (inherited) are single-scenario with a guard that points to the other. The recurring commands set `phase: execution` and a `sprint:` marker on first run; to start a new sprint, bump `sprint:` in `engagement.md`. Every step in the run-order tables now has a command — only the optional `security-review` command, reusable skills, and plugin packaging remain unbuilt.
 
 ## Templates (output packs)
 
