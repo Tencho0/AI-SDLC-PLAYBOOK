@@ -117,6 +117,55 @@ $docx = Get-ChildItem $root -Filter *.docx -Recurse -ErrorAction SilentlyContinu
         Where-Object { -not $_.FullName.StartsWith($srcPrefix, [System.StringComparison]::OrdinalIgnoreCase) }
 Check (-not $docx) "no .docx files remain (outside src/)"
 
+# 8. MCP integration layer
+$mcpExamplePath = Join-Path $root '.mcp.json.example'
+Check (Test-Path $mcpExamplePath) "exists: .mcp.json.example"
+if (Test-Path $mcpExamplePath) {
+  try {
+    $mcpJson     = (Get-Content $mcpExamplePath -Raw) | ConvertFrom-Json
+    $expKeys     = @('github','atlassian','ado','figma','playwright','teams')
+    $actKeys     = @($mcpJson.mcpServers.PSObject.Properties.Name)
+    $missing     = @($expKeys | Where-Object { $actKeys -notcontains $_ })
+    $extra       = @($actKeys | Where-Object { $expKeys -notcontains $_ })
+    Check ($missing.Count -eq 0 -and $extra.Count -eq 0) ".mcp.json.example mcpServers has exactly 6 keys (github,atlassian,ado,figma,playwright,teams)"
+  } catch {
+    Check $false ".mcp.json.example parses as valid JSON"
+  }
+}
+Check ($gi -match '(?m)^\s*\.mcp\.json\s*$') ".gitignore ignores .mcp.json"
+$tracked = & git -C $root ls-files '.mcp.json' 2>$null
+Check ([string]::IsNullOrEmpty($tracked)) ".mcp.json is not git-tracked"
+Check (Test-Path (Join-Path $root 'playbook/mcp.md')) "exists: playbook/mcp.md"
+$agentMcpMap = [ordered]@{
+  'product-discovery'      = @('mcp__atlassian__*','mcp__ado__*','mcp__teams__*')
+  'product-backlog'        = @('mcp__github__*','mcp__atlassian__*','mcp__ado__*')
+  'scrum-planning'         = @('mcp__github__*','mcp__atlassian__*','mcp__ado__*','mcp__teams__*')
+  'implementation'         = @('mcp__github__*','mcp__ado__*','mcp__figma__*','mcp__playwright__*')
+  'code-review'            = @('mcp__github__*','mcp__ado__*','mcp__figma__*')
+  'qa-test-design'         = @('mcp__github__*','mcp__atlassian__*','mcp__ado__*','mcp__playwright__*')
+  'test-automation'        = @('mcp__github__*','mcp__ado__*','mcp__playwright__*')
+  'devops'                 = @('mcp__github__*','mcp__ado__*')
+  'security-review'        = @('mcp__github__*','mcp__ado__*')
+  'documentation'          = @('mcp__github__*','mcp__atlassian__*','mcp__ado__*')
+  'support-incident'       = @('mcp__github__*','mcp__atlassian__*','mcp__ado__*','mcp__teams__*')
+  'retrospective-insights' = @('mcp__github__*','mcp__atlassian__*','mcp__ado__*','mcp__teams__*')
+}
+$allMcpServers = @('github','atlassian','ado','figma','playwright','teams')
+foreach ($agentName in $agentMcpMap.Keys) {
+  $af = Join-Path $root ".claude/agents/$agentName.md"
+  if (-not (Test-Path $af)) { Check $false "agent present for MCP wiring: $agentName"; continue }
+  $fm = Get-Frontmatter $af
+  if (-not $fm) { Check $false "agent frontmatter readable: $agentName"; continue }
+  $toolsLine = Get-FmValue $fm 'tools'
+  $expected  = $agentMcpMap[$agentName]
+  foreach ($srv in $allMcpServers) {
+    $pat        = "mcp__${srv}__*"
+    $shouldHave = $expected -contains $pat
+    $has        = $toolsLine -match [regex]::Escape($pat)
+    Check ($shouldHave -eq $has) "agent $agentName tools: $pat $(if ($shouldHave) { 'present' } else { 'absent' })"
+  }
+}
+
 Write-Host ""
 if ($script:fail -eq 0) { Write-Host "ALL CHECKS PASSED" -ForegroundColor Green; exit 0 }
 else { Write-Host "$script:fail CHECK(S) FAILED" -ForegroundColor Red; exit 1 }

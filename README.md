@@ -12,6 +12,7 @@ A reusable, pristine base for running **AI-assisted Scrum delivery** on client e
 | `templates/` | 30 output "packs" (shared / greenfield / inherited) |
 | `src/` | **Gitignored** workspace for all project-specific data |
 | `scripts/verify-scaffold.ps1` | Structural self-check for the scaffold |
+| `.mcp.json.example` | Six pre-wired MCP server declarations (placeholders only; real config is gitignored) |
 | `docs/superpowers/` | The design spec and this implementation plan |
 
 ## Start a new engagement
@@ -37,6 +38,11 @@ powershell -ExecutionPolicy Bypass -File scripts/verify-scaffold.ps1
 
 On macOS/Linux use PowerShell 7 (`pwsh scripts/verify-scaffold.ps1`). The check is optional — the scaffold is plain Markdown, so you can skip it if PowerShell isn't available.
 
+## Integrations (optional)
+
+Copy `.mcp.json.example` → `.mcp.json`, trim to the servers you need, supply credentials locally,
+and the right agents can call those servers' tools. Full instructions: `playbook/mcp.md`.
+
 ## Deferred (future passes)
 
-Every run-order step and cross-cutting event now has a slash command — the full once-per-engagement chain (`/intake` → `/sprint-plan`), the recurring sprint loop (`/execution`, `/daily-scrum`, `/pr-review`, `/qa`), the wrap-up (`/sprint-review`, `/retro`, and `/release-readiness` (greenfield) / `/modernize` (inherited)), and the cross-cutting `/security-review`, for both greenfield and inherited. Still optional / deferred: an `/automate-tests` command, reusable skills (e.g. a `/status`–`/next` navigator), and plugin packaging — see `docs/superpowers/specs/`.
+Every run-order step and cross-cutting event now has a slash command — the full once-per-engagement chain (`/intake` → `/sprint-plan`), the recurring sprint loop (`/execution`, `/daily-scrum`, `/pr-review`, `/qa`), the wrap-up (`/sprint-review`, `/retro`, and `/release-readiness` (greenfield) / `/modernize` (inherited)), and the cross-cutting `/security-review`, for both greenfield and inherited. Still optional / deferred: an `/automate-tests` command, reusable skills (e.g. a `/status`–`/next` navigator), and plugin packaging. MCP server integration now ships — see `playbook/mcp.md`.

@@ -1,7 +1,7 @@
 ---
 name: product-discovery
 description: Use at engagement intake and discovery to turn a raw client request, discovery-meeting notes, or a takeover request into structured discovery artifacts. Trigger cues — "new client request", "discovery", "kickoff", "takeover", "assess this request", "discovery workshop".
-tools: Read, Grep, Glob, Write, WebSearch, WebFetch
+tools: Read, Grep, Glob, Write, WebSearch, WebFetch, mcp__atlassian__*, mcp__ado__*, mcp__teams__*
 ---
 
 # Product Discovery Agent

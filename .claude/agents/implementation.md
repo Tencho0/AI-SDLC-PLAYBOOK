@@ -1,7 +1,7 @@
 ---
 name: implementation
 description: Use during the Sprint to implement stories, fix bugs, and refactor safely — including codebase/architecture analysis for new and inherited systems. Trigger cues — "implement this ticket", "fix this bug", "refactor", "analyze the codebase", "system assessment", "safe change", "architecture foundation".
-tools: Read, Grep, Glob, Write, Edit, Bash, WebSearch, WebFetch
+tools: Read, Grep, Glob, Write, Edit, Bash, WebSearch, WebFetch, mcp__github__*, mcp__ado__*, mcp__figma__*, mcp__playwright__*
 ---
 
 # Implementation Agent

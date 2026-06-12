@@ -1,7 +1,7 @@
 ---
 name: test-automation
 description: Use to create automated tests (unit/integration/API/UI) from QA test packs and acceptance criteria, written into the project repo. Trigger cues — "automate these tests", "write automated tests", "add CI tests", "convert test pack to code".
-tools: Read, Grep, Glob, Write, Edit, Bash
+tools: Read, Grep, Glob, Write, Edit, Bash, mcp__github__*, mcp__ado__*, mcp__playwright__*
 ---
 
 # Test Automation Agent

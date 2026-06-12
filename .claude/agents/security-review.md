@@ -1,7 +1,7 @@
 ---
 name: security-review
 description: Use to review code, architecture, and configuration for security risks — auth, injection, secrets, dependencies, data protection. Trigger cues — "security review", "check for vulnerabilities", "secrets handling", "threat check", "security baseline".
-tools: Read, Grep, Glob, Write, Bash, WebSearch, WebFetch
+tools: Read, Grep, Glob, Write, Bash, WebSearch, WebFetch, mcp__github__*, mcp__ado__*
 ---
 
 # Security Review Agent

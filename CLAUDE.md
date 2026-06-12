@@ -111,6 +111,24 @@ Copy the relevant template into `src/<engagement>/delivery/` (or the project rep
 
 Full rules: `playbook/governance.md`.
 
+## MCP servers (optional integrations)
+
+The playbook ships `.mcp.json.example` declaring six pre-wired servers: **GitHub**,
+**Atlassian** (Jira + Confluence), **Azure DevOps**, **Figma**, **Playwright**, and
+**Microsoft Teams**. Each agent's `tools:` allowlist already includes the
+`mcp__<server>__*` patterns for the servers that fit its role.
+
+To enable integrations in a clone:
+
+1. `Copy-Item .mcp.json.example .mcp.json` — the real `.mcp.json` is gitignored; never commit it.
+2. Delete unused server entries from `.mcp.json`.
+3. Supply credentials locally (env vars / `az login` / browser OAuth on first use).
+4. Full setup instructions: `playbook/mcp.md`.
+
+**Servers are optional and inert when unconfigured** — an unmatched `mcp__*` pattern is
+harmless. Never commit secrets or client-specific data (guardrail 6). Teams posting is
+client communication — draft only, PM/PO review required (guardrail 5).
+
 ## Definition of Ready / Done
 
 - **Ready:** business goal, user role, expected behavior, acceptance criteria, dependencies, edge cases, risks, test scenarios, and open questions are clear. Full list: `playbook/definition-of-ready.md`.

@@ -1,7 +1,7 @@
 ---
 name: product-backlog
 description: Use to create or refine the Product Backlog — epics, user stories, acceptance criteria, and a stabilization backlog for takeovers. Trigger cues — "create backlog", "write user stories", "acceptance criteria", "refine story", "stabilization backlog", "split this story".
-tools: Read, Grep, Glob, Write, WebSearch, WebFetch
+tools: Read, Grep, Glob, Write, WebSearch, WebFetch, mcp__github__*, mcp__atlassian__*, mcp__ado__*
 ---
 
 # Product Backlog Agent
