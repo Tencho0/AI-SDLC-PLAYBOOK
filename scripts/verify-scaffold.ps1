@@ -166,6 +166,48 @@ foreach ($agentName in $agentMcpMap.Keys) {
   }
 }
 
+# 9. Verification status registry — every on-disk agent/command/MCP server must have
+#    exactly one status row; status must be verified|untested|broken (word match, emoji
+#    optional). Human-maintained: the verifier guards completeness, not truthfulness.
+function Get-RegistryRows($text, $section) {
+  $m = [regex]::Match($text, '(?ms)^##\s+' + [regex]::Escape($section) + '\s*$(.*?)(?=^##\s|\z)')
+  if (-not $m.Success) { return $null }
+  $rows = foreach ($line in ($m.Groups[1].Value -split '\r?\n')) {
+    if ($line -notmatch '^\s*\|') { continue }
+    if ($line -match '^\s*\|\s*:?-{2,}') { continue }
+    $cells = @(($line -split '\|') | ForEach-Object { $_.Trim() })
+    if ($cells.Count -lt 3) { continue }
+    $name = $cells[1]
+    if ($name -in @('Agent','Command','Server') -or [string]::IsNullOrWhiteSpace($name)) { continue }
+    [pscustomobject]@{ Name = $name; Status = $cells[2] }
+  }
+  return $rows
+}
+function Check-RegistryParity($rows, $onDisk, $label, $stripSlash) {
+  if ($null -eq $rows) { Check $false "registry has a $label table"; return }
+  $names = @(@($rows) | ForEach-Object { if ($stripSlash) { $_.Name -replace '^/','' } else { $_.Name } })
+  foreach ($d in $onDisk) { Check ($names -contains $d) "registry lists ${label}: $d" }
+  foreach ($n in ($names | Where-Object { $onDisk -notcontains $_ })) { Check $false "registry has unknown $label row: $n" }
+}
+$vsPath = Join-Path $root 'playbook/verification-status.md'
+Check (Test-Path $vsPath) "exists: playbook/verification-status.md"
+if (Test-Path $vsPath) {
+  $vsText    = Get-Content $vsPath -Raw
+  $agentRows = Get-RegistryRows $vsText 'Agents'
+  $cmdRows   = Get-RegistryRows $vsText 'Commands'
+  $srvRows   = Get-RegistryRows $vsText 'MCP servers'
+  Check-RegistryParity $agentRows $agentNames 'agent'   $false
+  Check-RegistryParity $cmdRows   $cmdNames   'command' $true
+  $srvOnDisk = @()
+  if (Test-Path $mcpExamplePath) {
+    try { $srvOnDisk = @(((Get-Content $mcpExamplePath -Raw) | ConvertFrom-Json).mcpServers.PSObject.Properties.Name) } catch { $srvOnDisk = @() }
+  }
+  Check-RegistryParity $srvRows $srvOnDisk 'MCP server' $false
+  foreach ($r in (@($agentRows) + @($cmdRows) + @($srvRows) | Where-Object { $_ })) {
+    Check ($r.Status -match '\b(verified|untested|broken)\b') "registry status valid for '$($r.Name)': '$($r.Status)'"
+  }
+}
+
 Write-Host ""
 if ($script:fail -eq 0) { Write-Host "ALL CHECKS PASSED" -ForegroundColor Green; exit 0 }
 else { Write-Host "$script:fail CHECK(S) FAILED" -ForegroundColor Red; exit 1 }
