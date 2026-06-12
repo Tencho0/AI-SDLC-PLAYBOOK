@@ -129,6 +129,10 @@ To enable integrations in a clone:
 harmless. Never commit secrets or client-specific data (guardrail 6). Teams posting is
 client communication — draft only, PM/PO review required (guardrail 5).
 
+## Verification status
+
+Which agents, commands, and MCP servers have been **functionally exercised and work** is tracked in `playbook/verification-status.md` (human-maintained — flip a row to `verified` once you've actually run the piece). The scaffold verifier keeps that registry in sync with what's on disk; it does not judge whether a status is truthful.
+
 ## Definition of Ready / Done
 
 - **Ready:** business goal, user role, expected behavior, acceptance criteria, dependencies, edge cases, risks, test scenarios, and open questions are clear. Full list: `playbook/definition-of-ready.md`.

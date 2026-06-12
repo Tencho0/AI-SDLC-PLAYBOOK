@@ -12,6 +12,7 @@ A reusable, pristine base for running **AI-assisted Scrum delivery** on client e
 | `templates/` | 30 output "packs" (shared / greenfield / inherited) |
 | `src/` | **Gitignored** workspace for all project-specific data |
 | `scripts/verify-scaffold.ps1` | Structural self-check for the scaffold |
+| `playbook/verification-status.md` | Human-maintained record of which agents/commands/MCP servers are verified working |
 | `.mcp.json.example` | Six pre-wired MCP server declarations (placeholders only; real config is gitignored) |
 | `docs/superpowers/` | The design spec and this implementation plan |
 
