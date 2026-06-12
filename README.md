@@ -39,4 +39,4 @@ On macOS/Linux use PowerShell 7 (`pwsh scripts/verify-scaffold.ps1`). The check 
 
 ## Deferred (future passes)
 
-The intake + discovery, setup + planning, and recurring sprint-execution + QA slash commands are built — the once-per-engagement chain from `/intake` through `/sprint-plan`, plus the recurring `/execution`, `/daily-scrum`, `/pr-review`, and `/qa` (greenfield and inherited). Still deferred: commands for the per-sprint/milestone wrap-up (sprint review → retrospective → release / modernization), an `/automate-tests` command, reusable skills, and plugin packaging — see `docs/superpowers/specs/`.
+Every run-order step now has a slash command — the full once-per-engagement chain (`/intake` → `/sprint-plan`), the recurring sprint loop (`/execution`, `/daily-scrum`, `/pr-review`, `/qa`), and the wrap-up (`/sprint-review`, `/retro`, and `/release-readiness` (greenfield) / `/modernize` (inherited)), for both greenfield and inherited. Still optional / deferred: a `security-review` command, an `/automate-tests` command, reusable skills, and plugin packaging — see `docs/superpowers/specs/`.
