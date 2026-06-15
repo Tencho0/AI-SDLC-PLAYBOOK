@@ -37,6 +37,7 @@ foreach ($f in $refFiles) { Check (Test-Path (Join-Path $root $f)) "exists: $f" 
 
 # 2. Agents — required set present; every DISCOVERED agent has valid frontmatter (name == filename)
 $expectedAgents = 'product-discovery','product-backlog','scrum-planning','implementation',
+                  'implementation-frontend','implementation-backend','implementation-data','implementation-mobile',
                   'code-review','qa-test-design','test-automation','devops',
                   'security-review','documentation','support-incident','retrospective-insights'
 $agentFiles = @(Get-ChildItem (Join-Path $root '.claude/agents') -Filter *.md -ErrorAction SilentlyContinue)
@@ -140,8 +141,12 @@ $agentMcpMap = [ordered]@{
   'product-discovery'      = @('mcp__atlassian__*','mcp__ado__*','mcp__teams__*')
   'product-backlog'        = @('mcp__github__*','mcp__atlassian__*','mcp__ado__*')
   'scrum-planning'         = @('mcp__github__*','mcp__atlassian__*','mcp__ado__*','mcp__teams__*')
-  'implementation'         = @('mcp__github__*','mcp__ado__*','mcp__figma__*','mcp__playwright__*')
-  'code-review'            = @('mcp__github__*','mcp__ado__*','mcp__figma__*')
+  'implementation'          = @('mcp__github__*','mcp__ado__*','mcp__figma__*','mcp__playwright__*')
+  'implementation-frontend' = @('mcp__github__*','mcp__ado__*','mcp__figma__*','mcp__playwright__*')
+  'implementation-backend'  = @('mcp__github__*','mcp__ado__*')
+  'implementation-data'     = @('mcp__github__*','mcp__ado__*')
+  'implementation-mobile'   = @('mcp__github__*','mcp__ado__*','mcp__figma__*','mcp__playwright__*')
+  'code-review'             = @('mcp__github__*','mcp__ado__*','mcp__figma__*')
   'qa-test-design'         = @('mcp__github__*','mcp__atlassian__*','mcp__ado__*','mcp__playwright__*')
   'test-automation'        = @('mcp__github__*','mcp__ado__*','mcp__playwright__*')
   'devops'                 = @('mcp__github__*','mcp__ado__*')
