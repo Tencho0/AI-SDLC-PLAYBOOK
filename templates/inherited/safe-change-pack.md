@@ -10,6 +10,13 @@ source: Inherited Step 10
 
 > Produced to plan and make a low-risk change to inherited code without breaking hidden behavior. Save the filled copy to `src/<engagement>/delivery/`.
 
+## 0. Layer breakdown
+_Which layers participated, the contributing agent(s), and each layer's review owner. A single-layer ticket has one row. Content contributed by a specific layer is tagged `**(layer)**` under the sections below._
+
+| Layer | Contributing agent | Review owner |
+|-------|--------------------|--------------|
+| | | |
+
 ## 1. Issue summary
 _What the change is meant to address._
 

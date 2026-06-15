@@ -10,6 +10,13 @@ source: Greenfield Step 9 / §7.4
 
 > Produced while implementing a story or fix to capture the change and its reasoning. Save the filled copy to `src/<engagement>/delivery/`.
 
+## 0. Layer breakdown
+_Which layers participated, the contributing agent(s), and each layer's review owner. A single-layer ticket has one row. Content contributed by a specific layer is tagged `**(layer)**` under the sections below._
+
+| Layer | Contributing agent | Review owner |
+|-------|--------------------|--------------|
+| | | |
+
 ## 1. Ticket understanding
 _The team's understanding of what the ticket asks for._
 
