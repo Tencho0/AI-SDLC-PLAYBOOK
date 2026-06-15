@@ -8,7 +8,7 @@ A reusable, pristine base for running **AI-assisted Scrum delivery** on client e
 |------|-----------|
 | `CLAUDE.md` | Operating manual, auto-loaded by Claude Code |
 | `playbook/` | The full AI-Assisted Scrum Delivery Model (canonical reference) |
-| `.claude/agents/` | 12 specialized subagents |
+| `.claude/agents/` | 16 specialized subagents |
 | `templates/` | 30 output "packs" (shared / greenfield / inherited) |
 | `src/` | **Gitignored** workspace for all project-specific data |
 | `scripts/verify-scaffold.ps1` | Structural self-check for the scaffold |

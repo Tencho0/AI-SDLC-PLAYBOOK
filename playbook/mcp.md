@@ -37,6 +37,10 @@ URL is ever committed to the base.
 | product-backlog | ✓ | ✓ | ✓ | | | |
 | scrum-planning | ✓ | ✓ | ✓ | | | ✓ |
 | implementation | ✓ | | ✓ | ✓ | ✓ | |
+| implementation-frontend | ✓ | | ✓ | ✓ | ✓ | |
+| implementation-backend | ✓ | | ✓ | | | |
+| implementation-data | ✓ | | ✓ | | | |
+| implementation-mobile | ✓ | | ✓ | ✓ | ✓ | |
 | code-review | ✓ | | ✓ | ✓ | | |
 | qa-test-design | ✓ | ✓ | ✓ | | ✓ | |
 | test-automation | ✓ | | ✓ | | ✓ | |
