@@ -21,7 +21,11 @@ Nothing project-specific is ever committed to this playbook repo.
 | `product-discovery` | Intake & discovery; product/stabilization goal | Request/Takeover Brief, Discovery Workshop Plan, Meeting Summary, Goal Draft, Access Checklist | PO / BA |
 | `product-backlog` | Epics, stories, acceptance criteria, stabilization backlog | Initial/Stabilization Backlog, Refined Story Pack | Product Owner |
 | `scrum-planning` | Sprint Planning, Daily Scrum, Sprint Review | Sprint Planning Support Pack, Daily Scrum Summary, Sprint Review Pack | Scrum Team |
-| `implementation` | Build stories, fix bugs, refactor, codebase analysis | Implementation Pack, Safe Change Pack, Architecture/System/Codebase docs | Developer / Tech Lead |
+| `implementation` | Orchestrate a ticket across layers, integrate the slices, commit; plus codebase/architecture analysis | Implementation Pack, Safe Change Pack, Architecture/System/Codebase docs | Developer / Tech Lead |
+| `implementation-frontend` | Implement the frontend/UI slice of a ticket | Frontend code + returned pack-slice | Developer (frontend) / Tech Lead |
+| `implementation-backend` | Implement the backend/API slice of a ticket | Backend code + returned pack-slice | Developer / Tech Lead |
+| `implementation-data` | Implement the data/persistence slice of a ticket | Data code/migrations + returned pack-slice | Developer (data) / Tech Lead |
+| `implementation-mobile` | Implement the mobile slice of a ticket | Mobile code + returned pack-slice | Developer (mobile) / Tech Lead |
 | `code-review` | First-pass PR review before human review | AI PR Review Report | Human reviewer / Tech Lead |
 | `qa-test-design` | Test cases, edge cases, regression packs | QA Test Pack, Regression Test Pack | QA |
 | `test-automation` | Automated tests (written into the project repo) | Test code in project repo | QA Automation / Developers |
@@ -32,6 +36,8 @@ Nothing project-specific is ever committed to this playbook repo.
 | `retrospective-insights` | Analyze Sprint patterns & improvements | Retrospective Insights Pack | Scrum Master / Scrum Team |
 
 Invoke an agent with the Task/Agent tool (`subagent_type` = agent name), or let Claude auto-route via the agent's `description`. Each agent file lists the exact template(s) it fills.
+
+**Layer-specialized implementation family.** `implementation` is an **orchestrator**: for a multi-tier ticket it scopes the work into layers and delegates each slice to a layer specialist — `implementation-frontend`, `implementation-backend`, `implementation-data`, `implementation-mobile` — then integrates the slices into one pack and is the sole committer. Single-tier tickets route straight to one specialist (the `/execution` fast path). `implementation` still runs `/architecture`, `/map-codebase`, and `/system-assessment` solo. Full design: `docs/superpowers/specs/2026-06-15-specialized-implementation-agents-design.md`.
 
 ## Step-by-step run order
 
@@ -49,7 +55,7 @@ The authoritative step sequence lives in `playbook/PLAYBOOK.md` (§5 greenfield,
 | 6 | Architecture foundation | `implementation` (+ `security-review`, `documentation`) | `templates/greenfield/architecture-technical-foundation-pack.md` | `/architecture` |
 | 7 | Backlog refinement | `product-backlog` | `templates/shared/refined-story-pack.md` | `/refine` |
 | 8 | Sprint Planning | `scrum-planning` | `templates/shared/sprint-planning-support-pack.md` | `/sprint-plan` |
-| 9 | Sprint execution | `implementation` | `templates/shared/implementation-pack.md` | `/execution` |
+| 9 | Sprint execution | `implementation` (orchestrator → `implementation-frontend`/`-backend`/`-data`/`-mobile`) | `templates/shared/implementation-pack.md` | `/execution` |
 | 10 | Daily Scrum | `scrum-planning` | `templates/shared/daily-scrum-support-summary.md` | `/daily-scrum` |
 | 11 | Code review | `code-review` | `templates/shared/ai-pr-review-report.md` | `/pr-review` |
 | 12 | QA & testing | `qa-test-design` (+ `test-automation`) | `templates/shared/qa-test-pack.md` | `/qa` |
@@ -70,7 +76,7 @@ The authoritative step sequence lives in `playbook/PLAYBOOK.md` (§5 greenfield,
 | 7 | Stabilization backlog | `product-backlog` | `templates/inherited/stabilization-product-backlog.md` | `/stabilization-backlog` |
 | 8 | Backlog refinement | `product-backlog` | `templates/inherited/inherited-refined-story-pack.md` | `/refine` |
 | 9 | Sprint Planning | `scrum-planning` | `templates/inherited/inherited-sprint-planning-support-pack.md` | `/sprint-plan` |
-| 10 | Safe execution | `implementation` | `templates/inherited/safe-change-pack.md` | `/execution` |
+| 10 | Safe execution | `implementation` (orchestrator → layer agents, sequential `data → backend → frontend/mobile`) | `templates/inherited/safe-change-pack.md` | `/execution` |
 | 11 | Regression QA | `qa-test-design` (+ `test-automation`) | `templates/inherited/regression-test-pack.md` | `/qa` |
 | 12 | Sprint Review | `scrum-planning` | `templates/inherited/inherited-sprint-review-pack.md` | `/sprint-review` |
 | 13 | Retrospective | `retrospective-insights` | `templates/inherited/inherited-retrospective-insights-pack.md` | `/retro` |
