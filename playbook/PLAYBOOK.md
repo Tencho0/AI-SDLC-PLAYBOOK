@@ -234,7 +234,11 @@ The company should not use one generic AI assistant for everything. It should de
 | Product Discovery Agent | Understands client goals, problems, and initial scope | PO, BA, PM, Sales |
 | Product Backlog Agent | Creates and refines epics, stories, and acceptance criteria | PO, BA, Scrum Team |
 | Scrum Planning Agent | Supports Sprint Planning, Sprint Goal drafting, and risk analysis | Scrum Master, PM, Scrum Team |
-| Implementation Agent | Helps Developers implement stories, fix bugs, and refactor | Developers |
+| Implementation Agent (orchestrator) | Scopes a ticket into layers, delegates to layer specialists, integrates their work, and is the sole committer; also runs codebase/architecture analysis solo | Developers, Tech Lead |
+| Implementation Agent — Frontend | Implements the frontend/UI tier (web UI, components, client state, styling) | Developers (frontend), Tech Lead |
+| Implementation Agent — Backend | Implements the backend/API tier (server logic, endpoints, services, auth, business rules) | Developers, Tech Lead |
+| Implementation Agent — Data | Implements the data tier (schema, migrations, queries, ORM, data access) | Developers (data), Tech Lead, Architect |
+| Implementation Agent — Mobile | Implements the mobile tier (iOS/Android/cross-platform) | Developers (mobile), Tech Lead |
 | Code Review Agent | Performs first-pass PR review | Developers, Tech Lead |
 | QA Test Design Agent | Generates manual test cases, edge cases, and regression checks | QA, BA, Developers |
 | Test Automation Agent | Helps create automated tests | QA Automation, Developers |
@@ -762,6 +766,8 @@ Use AI to:
 - refactor;
 - update documentation;
 - prepare PR summary.
+
+> **Layer orchestration (`/execution`):** for multi-tier tickets the **implementation orchestrator** scopes the work into layers (frontend / backend / data / mobile), delegates each slice to the matching layer specialist agent (in parallel when file partitions are disjoint, else sequential), then integrates the slices into one Implementation Pack as the sole committer. Single-tier tickets route straight to one specialist.
 
 **AI output**
 
@@ -1654,6 +1660,8 @@ Use AI to:
 - assist with small code changes;
 - update documentation;
 - prepare PR risk notes.
+
+> **Layer orchestration (`/execution`):** for multi-tier tickets the **implementation orchestrator** scopes the work into layers and runs the layer specialists **sequentially** in safe order (`data → backend → frontend/mobile`) behind an orchestrator-coordinated characterization-test gate that captures current behavior before any change; it then integrates the slices into one Safe Change Pack as the sole committer. The gate applies to single-tier tickets too.
 
 **AI output**
 
