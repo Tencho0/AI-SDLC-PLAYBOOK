@@ -23,6 +23,7 @@ and MCP server on disk has exactly one row here, and that each Status is one of 
 | implementation-frontend | 🟡 untested | — | — |
 | implementation-backend | 🟡 untested | — | — |
 | implementation-data | 🟡 untested | — | — |
+| implementation-mobile | 🟡 untested | — | — |
 | code-review | 🟡 untested | — | — |
 | qa-test-design | 🟡 untested | — | — |
 | test-automation | 🟡 untested | — | — |
