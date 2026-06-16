@@ -126,9 +126,9 @@ The playbook ships `.mcp.json.example` declaring six pre-wired servers: **GitHub
 
 To enable integrations in a clone:
 
-1. `Copy-Item .mcp.json.example .mcp.json` — the real `.mcp.json` is gitignored; never commit it.
-2. Delete unused server entries from `.mcp.json`.
-3. Supply credentials locally (env vars / `az login` / browser OAuth on first use).
+1. `Copy-Item mcp.env.example .env` — fill in tokens / org name (the real `.env` is gitignored; never commit secrets).
+2. `powershell -File scripts/setup-mcp.ps1` — generates the gitignored `.mcp.json`, wiring only the servers whose creds you supplied (the rest are dropped).
+3. Per-server prerequisites (`az login` for `ado`, browser OAuth for `atlassian`/`figma`) — see `playbook/mcp.md`.
 4. Full setup instructions: `playbook/mcp.md`.
 
 **Servers are optional and inert when unconfigured** — an unmatched `mcp__*` pattern is

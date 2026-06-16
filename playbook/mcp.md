@@ -7,15 +7,17 @@ fit their role. This guide explains how to enable them in a clone.
 
 `.mcp.json.example` is committed to the base repo — it contains placeholder values only
 (public image/package names, `${ENV_VAR}` references, and public OAuth URLs). The real
-`.mcp.json` is gitignored. Per-clone setup: copy the example to `.mcp.json`, delete the
-servers you don't need, and supply credentials locally. No secret and no client-specific
-URL is ever committed to the base.
+`.mcp.json` is gitignored. A second committed template, `mcp.env.example`, lists the
+per-engagement secrets (tokens / org name) with blank values; you copy it to a gitignored
+`.env`, fill it in, and run `scripts/setup-mcp.ps1` to generate `.mcp.json`. No secret and
+no client-specific URL is ever committed to the base — the only files you edit per clone
+(`.env`, `.mcp.json`) are both gitignored.
 
 ## 2. Server reference
 
 | Server | Tool prefix | What it gives agents | Transport | Auth |
 |--------|-------------|---------------------|-----------|------|
-| `github` | `mcp__github__*` | Read/write repos, issues, PRs, code search | stdio (Docker) | PAT via `$GITHUB_PERSONAL_ACCESS_TOKEN` |
+| `github` | `mcp__github__*` | Read/write repos, issues, PRs, code search | Remote HTTP | PAT via `$GITHUB_PERSONAL_ACCESS_TOKEN` (Bearer header) |
 | `atlassian` | `mcp__atlassian__*` | Jira issues, Confluence pages | Remote HTTP | Browser OAuth 2.1 (first use) |
 | `ado` | `mcp__ado__*` | Azure DevOps repos, boards, pipelines, wiki | stdio (npx) | `az login` (`azcli` auth) |
 | `figma` | `mcp__figma__*` | Figma design files (read) | Remote HTTP | Browser OAuth (first use) |
@@ -55,26 +57,46 @@ Unconfigured servers are inert — an unmatched pattern is harmless (D5).
 
 ## 4. Per-clone setup
 
-### 4.1 Copy and trim
+### 4.1 Quickstart (fill one file, run one script)
 
 ```powershell
-Copy-Item .mcp.json.example .mcp.json
+Copy-Item mcp.env.example .env      # then open .env and fill in tokens / org name
+powershell -File scripts/setup-mcp.ps1
 ```
 
-Open `.mcp.json` and delete the `mcpServers` entries for servers you won't use.
-The file is gitignored — **never commit it**.
+`setup-mcp.ps1` reads `.env`, substitutes the values into the wired `.mcp.json.example`
+structure, and writes `.mcp.json`. It **drops any server whose required secret is missing
+from `.env`**, so unconfigured servers never half-start; servers that need no secret
+(`atlassian`, `figma`, `playwright`) are always wired and authenticate via browser OAuth /
+no auth on first use. The script prints which servers are active and which were skipped.
+
+Both `.env` and `.mcp.json` are gitignored — **never commit either**. Re-run the script
+whenever you change `.env`, then restart the Claude session (or reload the window) so the
+new `.mcp.json` is picked up. Per-server prerequisites and where each value comes from are
+in §4.2–§4.7 below (and inline in `mcp.env.example`).
+
+> **Manual alternative:** you can instead `Copy-Item .mcp.json.example .mcp.json`, delete
+> the server entries you won't use, and replace the `${VAR}` placeholders with literal
+> values by hand. The script just automates this.
 
 ### 4.2 GitHub
 
-Prerequisites: Docker Desktop running.
+Uses GitHub's remote hosted MCP server (`https://api.githubcopilot.com/mcp/`) — no Docker,
+no local install. The PAT is sent as a Bearer `Authorization` header.
 
 1. Create a GitHub Personal Access Token at `https://github.com/settings/tokens`.
    Minimum scopes: `repo` (read), `read:org`.
-2. Set the environment variable (add to your shell profile or a local `.env`):
+2. Add it to `.env`:
    ```
    GITHUB_PERSONAL_ACCESS_TOKEN=ghp_...
    ```
-3. The Docker image (`ghcr.io/github/github-mcp-server`) pulls automatically on first use.
+3. `setup-mcp.ps1` bakes the token into the `Authorization` header of the generated `.mcp.json`.
+
+> **Prefer no token in config?** Use OAuth instead: drop the `headers` block from the
+> `github` entry in `.mcp.json.example`, then run `/mcp` → `github` → Authenticate in the
+> browser on first use (like `atlassian`/`figma`). Local-only alternatives (Docker image
+> `ghcr.io/github/github-mcp-server`, or the standalone `github-mcp-server` binary) remain
+> valid if a client policy requires GitHub traffic to stay off the hosted endpoint.
 
 ### 4.3 Azure DevOps
 
@@ -83,7 +105,7 @@ Prerequisites: Azure CLI installed.
 - macOS: `brew install azure-cli`
 
 1. Log in: `az login`
-2. Set your organisation name (just the name, not the full URL):
+2. Add your organisation name to `.env` (just the name, not the full URL):
    ```
    AZURE_DEVOPS_ORG=your-org-name
    ```
@@ -113,12 +135,18 @@ Prerequisites: an Azure App Registration with Microsoft Graph permissions.
    `ChannelMessage.Read.All`, `Chat.Read`, `Team.ReadBasic.All`.
 3. Under "Authentication", add a mobile/desktop redirect URI: `http://localhost`.
 4. Note the **Application (client) ID** and your **Directory (tenant) ID**.
-5. Set environment variables:
+5. Add to `.env`:
    ```
    MS365_MCP_CLIENT_ID=<your-app-client-id>
    MS365_MCP_TENANT_ID=<your-azure-tenant-id>
    ```
 6. On first use an OAuth browser flow prompts for sign-in.
+
+> **`--org-mode` is required for Teams.** The wired entry passes `--org-mode` (without it the
+> server exposes only personal mail/calendar/OneDrive — **no** Teams/channel/chat tools) and
+> `--read-only` (draft-only posture, per guardrail 5). `--org-mode` requires a work/school
+> (Entra ID) account, not a personal one. To confirm the exact Graph permissions your config
+> needs: `npx -y @softeria/ms-365-mcp-server --org-mode --list-permissions`.
 
 > **Governance (guardrail 5):** Teams posting is client communication. Any messages
 > composed by an agent are drafts — PM/PO must review and approve before sending.
@@ -140,7 +168,9 @@ Prerequisites: an Azure App Registration with Microsoft Graph permissions.
 
 1. Add the server entry to your local `.mcp.json`.
 2. If the server is reusable (no client-specific values committed), add it to
-   `.mcp.json.example` with `${ENV_VAR}` placeholders.
+   `.mcp.json.example` with `${ENV_VAR}` placeholders, and add any new `${ENV_VAR}`
+   to `mcp.env.example` with a blank value + a short comment (so `setup-mcp.ps1`
+   wires it from `.env`).
 3. Add `mcp__<server>__*` to the `tools:` line of each agent that should use it
    (`.claude/agents/<agent>.md`).
 4. If you updated the example: add the new key to the `$expKeys` array in
