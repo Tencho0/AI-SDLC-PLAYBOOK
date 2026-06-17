@@ -19,7 +19,7 @@ no client-specific URL is ever committed to the base — the only files you edit
 |--------|-------------|---------------------|-----------|------|
 | `github` | `mcp__github__*` | Read/write repos, issues, PRs, code search | Remote HTTP | PAT via `$GITHUB_PERSONAL_ACCESS_TOKEN` (Bearer header) |
 | `atlassian` | `mcp__atlassian__*` | Jira issues, Confluence pages | Remote HTTP | Browser OAuth 2.1 (first use) |
-| `ado` | `mcp__ado__*` | Azure DevOps repos, boards, pipelines, wiki | stdio (npx) | `az login` (`azcli` auth) |
+| `ado` | `mcp__ado__*` | Azure DevOps repos, boards, pipelines, wiki | stdio (npx) | PAT via `$AZURE_DEVOPS_PAT` (no Azure CLI) |
 | `figma` | `mcp__figma__*` | Figma design files (read) | Remote HTTP | Browser OAuth (first use) |
 | `playwright` | `mcp__playwright__*` | Browser automation, E2E, screenshots | stdio (npx) | None |
 | `teams` | `mcp__teams__*` | Read Teams messages/channels, draft posts | stdio (npx) | Azure AD app + OAuth |
@@ -100,15 +100,20 @@ no local install. The PAT is sent as a Bearer `Authorization` header.
 
 ### 4.3 Azure DevOps
 
-Prerequisites: Azure CLI installed.
-- Windows: `winget install Microsoft.AzureCLI`
-- macOS: `brew install azure-cli`
+Uses a Personal Access Token (PAT) — no Azure CLI required.
 
-1. Log in: `az login`
-2. Add your organisation name to `.env` (just the name, not the full URL):
+1. Create a PAT at `https://dev.azure.com/<org>/_usersSettings/tokens`.
+   Minimum read-only scopes: Work Items (Read), Code (Read), Project and Team (Read).
+2. Add your org name and the raw PAT to `.env`:
    ```
    AZURE_DEVOPS_ORG=your-org-name
+   AZURE_DEVOPS_PAT=<your-raw-pat>
    ```
+   `setup-mcp.ps1` base64-encodes it into the `PERSONAL_ACCESS_TOKEN` form the server
+   expects (base64 of `email:pat`); paste the raw token, not an encoded one.
+
+> **Prefer Azure CLI auth?** Set the `ado` entry's `--authentication` back to `azcli`
+> and drop its `env` block; then `az login` supplies the credential instead of a PAT.
 
 ### 4.4 Atlassian (Jira + Confluence)
 

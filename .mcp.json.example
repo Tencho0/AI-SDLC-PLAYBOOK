@@ -11,7 +11,8 @@
     },
     "ado": {
       "command": "npx",
-      "args": ["-y", "@azure-devops/mcp", "${AZURE_DEVOPS_ORG}", "--authentication", "azcli"]
+      "args": ["-y", "@azure-devops/mcp", "${AZURE_DEVOPS_ORG}", "--authentication", "pat"],
+      "env": { "PERSONAL_ACCESS_TOKEN": "${AZURE_DEVOPS_PAT_B64}" }
     },
     "figma": {
       "type": "http",

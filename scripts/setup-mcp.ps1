@@ -46,6 +46,15 @@ if (-not (Test-Path $EnvFile)) {
 }
 
 $vars = Read-DotEnv $EnvFile
+
+# Azure DevOps PAT: @azure-devops/mcp reads PERSONAL_ACCESS_TOKEN as
+# base64("<anything>:<pat>") for Basic auth. Let users paste the RAW PAT as
+# AZURE_DEVOPS_PAT and derive the encoded form the .mcp.json.example expects.
+if ($vars.ContainsKey('AZURE_DEVOPS_PAT')) {
+  $raw = 'x:' + $vars['AZURE_DEVOPS_PAT']
+  $vars['AZURE_DEVOPS_PAT_B64'] = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($raw))
+}
+
 $json = (Get-Content $Example -Raw) | ConvertFrom-Json
 
 $kept = @(); $dropped = @()
@@ -83,6 +92,6 @@ if ($dropped.Count -gt 0) {
 }
 Write-Host ""
 Write-Host "Reminders:" -ForegroundColor Cyan
-Write-Host "  - ado needs 'az login'; github uses your PAT as a Bearer header (no Docker)."
+Write-Host "  - github & ado authenticate with PATs from .env (no Docker, no Azure CLI)."
 Write-Host "  - atlassian / figma open a browser OAuth flow on first use."
 Write-Host "  - Restart the Claude session (or reload the window) to pick up the new .mcp.json."
