@@ -8,8 +8,11 @@ repo stays canonical; the wiki is a published mirror you refresh when ready.
 
 ## Prerequisites
 - The `ado` MCP server is connected (see [playbook/mcp.md](../../playbook/mcp.md) §4.3 and §4.8).
+- The PAT used for `ado` has the **Wiki (Read & Write)** scope — the read-only setup PAT cannot
+  publish pages. Add it to the token in ADO, then re-run `scripts/setup-mcp.ps1` (or just reload if
+  you edited the existing token in place).
 - The target project has a wiki. Discover it with the `ado` tool `wiki_list_wikis`; if none exists,
-  create a project wiki once in the ADO UI and note its id/name.
+  create a project wiki once in the ADO UI (Project → Overview → Wiki → Create project wiki) and note its id/name.
 
 ## Page mapping (stable paths)
 Each file maps to a fixed wiki page path under one parent so re-publishing **updates** the same page

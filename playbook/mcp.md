@@ -116,7 +116,8 @@ Uses a Personal Access Token (PAT) — no Azure CLI required.
    - **Scopes** — choose **Custom defined**, then grant read-only:
      **Work Items → Read**, **Code → Read**, **Project and Team → Read**.
      (Add the matching **Read & write** scopes only if agents must later create/update work
-     items or PR comments — and only with governance sign-off; see §5.)
+     items or PR comments, or **Wiki (Read & Write)** to publish docs to the project wiki — and
+     only with governance sign-off; see §5.)
 4. **Create**, then **copy the token immediately** — Azure DevOps shows it only once.
 
 **Put it in `.env`** (raw token — the script encodes it):
