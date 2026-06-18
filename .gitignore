@@ -7,6 +7,8 @@ src/*
 # Local env files hold MCP tokens — never commit secrets.
 .env
 .env.*
+# Per-user local Claude settings (MCP approvals, local prefs) — not part of the base.
+.claude/settings.local.json
 
 # OS / editor noise
 .DS_Store
