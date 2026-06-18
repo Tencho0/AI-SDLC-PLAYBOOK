@@ -94,11 +94,13 @@ no local install. The PAT is sent as a Bearer `Authorization` header.
    ```
 3. `setup-mcp.ps1` bakes the token into the `Authorization` header of the generated `.mcp.json`.
 
-> **Prefer no token in config?** Use OAuth instead: drop the `headers` block from the
-> `github` entry in `.mcp.json.example`, then run `/mcp` → `github` → Authenticate in the
-> browser on first use (like `atlassian`/`figma`). Local-only alternatives (Docker image
-> `ghcr.io/github/github-mcp-server`, or the standalone `github-mcp-server` binary) remain
-> valid if a client policy requires GitHub traffic to stay off the hosted endpoint.
+> **Browser OAuth does not work for this endpoint from Claude Code.** Dropping the `headers`
+> block and authenticating via `/mcp` fails with *"Incompatible auth server: does not support
+> dynamic client registration"* — the hosted GitHub MCP server requires a pre-registered OAuth
+> client, but Claude Code's MCP client only does Dynamic Client Registration (DCR). Use the PAT
+> (above). Local-only alternatives (Docker image `ghcr.io/github/github-mcp-server`, or the
+> standalone `github-mcp-server` binary) remain valid if a client policy requires GitHub traffic
+> to stay off the hosted endpoint.
 
 ### 4.3 Azure DevOps
 
