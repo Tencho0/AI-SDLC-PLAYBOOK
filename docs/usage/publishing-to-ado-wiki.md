@@ -3,7 +3,7 @@
 **Audience:** delivery
 
 ## Purpose
-Publish this usage guide into the engagement's Azure DevOps wiki (e.g. Klevret.SDLC) on demand. The
+Publish this usage guide into the engagement's Azure DevOps project wiki on demand. The
 repo stays canonical; the wiki is a published mirror you refresh when ready.
 
 ## Prerequisites
