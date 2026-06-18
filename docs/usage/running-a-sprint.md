@@ -1,9 +1,18 @@
-# Running a Sprint
+# 🔁 Running a Sprint
 
-**Audience:** delivery
+**Audience:** 🛠️ Delivery team
 
 ## Purpose
 Drive the recurring per-sprint commands once an engagement is set up and planned.
+
+## 🔁 The loop at a glance
+
+```mermaid
+flowchart LR
+    EX["/execution"] --> DS["/daily-scrum"] --> PR["/pr-review"] --> QA["/qa"]
+    QA -.->|next ticket| EX
+    QA --> SR["/sprint-review"] --> RT["/retro"]
+```
 
 ## The recurring loop (both tracks)
 Run these repeatedly, keyed by item id; they write item-keyed artifacts under
@@ -21,6 +30,6 @@ Run these repeatedly, keyed by item id; they write item-keyed artifacts under
 ## Governance gates
 Every artifact passes a human review gate — see [governance-and-reviews.md](governance-and-reviews.md).
 
-## Read more
+## 📚 Read more
 - Command reference and keying rules: [CLAUDE.md](../../CLAUDE.md) (Slash commands section)
 - Where this sits in the engagement: [running-an-engagement.md](running-an-engagement.md)

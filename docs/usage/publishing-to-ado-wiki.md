@@ -1,6 +1,6 @@
-# Publishing to the ADO Wiki
+# 📤 Publishing to the ADO Wiki
 
-**Audience:** delivery
+**Audience:** 🛠️ Delivery team
 
 ## Purpose
 Publish this usage guide into the engagement's Azure DevOps project wiki on demand. The
@@ -40,12 +40,13 @@ others are its children. All eight pages are published so no in-guide link is le
    (e.g. `(getting-started.md)` → `(/AI-SDLC Playbook/Getting Started)`) so in-wiki navigation works.
    Repo-relative links (`../../...`, e.g. to CLAUDE.md / PLAYBOOK.md) are left as-is and **do not
    resolve in the wiki** — the repo stays the canonical reference for those.
-4. Re-running repeats the same paths, so existing pages are updated, not duplicated.
+4. **Table of contents (wiki-only):** insert `[[_TOC_]]` on its own line after the audience badge on the longer pages (Getting Started, Running an Engagement, Running a Sprint, Governance and Reviews). It is NOT kept in the repo files because GitHub renders `[[_TOC_]]` as literal text.
+5. Re-running repeats the same paths, so existing pages are updated, not duplicated.
 
 ## Governance
 Publishing is client-visible. The delivery team reviews content before publishing; never include
 anything from `.env` or `src/` (secrets / client-confidential).
 
-## Read more
+## 📚 Read more
 - ADO MCP setup: [playbook/mcp.md](../../playbook/mcp.md)
 - Adding/extending pages: [adding-a-page.md](adding-a-page.md)

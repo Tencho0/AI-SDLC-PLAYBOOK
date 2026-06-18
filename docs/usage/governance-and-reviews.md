@@ -1,6 +1,6 @@
-# Governance and Reviews
+# ✅ Governance and Reviews
 
-**Audience:** both
+**Audience:** 🛠️ Delivery team · 👥 Clients
 
 ## Purpose
 Explain the human-in-the-loop gates that apply to every AI-produced artifact, and the
@@ -29,6 +29,6 @@ set of seven guardrails is in [playbook/governance.md](../../playbook/governance
 ## Every AI artifact separates
 Observed facts · Assumptions · Risks · Recommendations · Open questions.
 
-## Read more
+## 📚 Read more
 - All seven guardrails: [playbook/governance.md](../../playbook/governance.md)
 - For the client view of reviews: [for-clients.md](for-clients.md)

@@ -1,6 +1,6 @@
-# Getting Started
+# 🚀 Getting Started
 
-**Audience:** delivery
+**Audience:** 🛠️ Delivery team
 
 ## Purpose
 Get a clone of the Playbook configured and produce the first artifact for a new engagement.
@@ -27,7 +27,7 @@ Get a clone of the Playbook configured and produce the first artifact for a new 
 - Run `/intake <engagement>` to bootstrap and produce the first brief, then follow the run order
   in [running-an-engagement.md](running-an-engagement.md).
 
-## Read more
+## 📚 Read more
 - Operating manual: [CLAUDE.md](../../CLAUDE.md)
 - Full model: [playbook/PLAYBOOK.md](../../playbook/PLAYBOOK.md)
 - Integrations: [playbook/mcp.md](../../playbook/mcp.md)

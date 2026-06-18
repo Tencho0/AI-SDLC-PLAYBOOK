@@ -1,6 +1,6 @@
-# For Clients
+# 👥 For Clients
 
-**Audience:** client
+**Audience:** 👥 Clients
 
 ## Purpose
 A short orientation for client stakeholders (PO, sponsors, client developers) on how the
@@ -28,5 +28,5 @@ replace your decisions.
 - No secrets or production data go into the AI tools.
 - Estimates and plans are drafts for the team to confirm, not commitments made by the AI.
 
-## Read more
+## 📚 Read more
 - The gates in detail: [governance-and-reviews.md](governance-and-reviews.md)
