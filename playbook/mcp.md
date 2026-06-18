@@ -73,7 +73,7 @@ no auth on first use. The script prints which servers are active and which were 
 Both `.env` and `.mcp.json` are gitignored — **never commit either**. Re-run the script
 whenever you change `.env`, then restart the Claude session (or reload the window) so the
 new `.mcp.json` is picked up. Per-server prerequisites and where each value comes from are
-in §4.2–§4.7 below (and inline in `mcp.env.example`).
+in §4.2–§4.7 below (and inline in `mcp.env.example`); then verify and approve per §4.8.
 
 > **Manual alternative:** you can instead `Copy-Item .mcp.json.example .mcp.json`, delete
 > the server entries you won't use, and replace the `${VAR}` placeholders with literal
@@ -84,8 +84,10 @@ in §4.2–§4.7 below (and inline in `mcp.env.example`).
 Uses GitHub's remote hosted MCP server (`https://api.githubcopilot.com/mcp/`) — no Docker,
 no local install. The PAT is sent as a Bearer `Authorization` header.
 
-1. Create a GitHub Personal Access Token at `https://github.com/settings/tokens`.
-   Minimum scopes: `repo` (read), `read:org`.
+1. Create a GitHub Personal Access Token: **GitHub → Settings → Developer settings →
+   Personal access tokens → Tokens (classic) → Generate new token** (direct link:
+   `https://github.com/settings/tokens`). Set an expiration, grant minimum scopes
+   `repo` and `read:org`, generate, and **copy it immediately** (shown only once).
 2. Add it to `.env`:
    ```
    GITHUB_PERSONAL_ACCESS_TOKEN=ghp_...
@@ -102,15 +104,29 @@ no local install. The PAT is sent as a Bearer `Authorization` header.
 
 Uses a Personal Access Token (PAT) — no Azure CLI required.
 
-1. Create a PAT at `https://dev.azure.com/<org>/_usersSettings/tokens`.
-   Minimum read-only scopes: Work Items (Read), Code (Read), Project and Team (Read).
-2. Add your org name and the raw PAT to `.env`:
-   ```
-   AZURE_DEVOPS_ORG=your-org-name
-   AZURE_DEVOPS_PAT=<your-raw-pat>
-   ```
-   `setup-mcp.ps1` base64-encodes it into the `PERSONAL_ACCESS_TOKEN` form the server
-   expects (base64 of `email:pat`); paste the raw token, not an encoded one.
+**Create the PAT:**
+1. Sign in at `https://dev.azure.com/<your-org>` — the org is the segment after
+   `dev.azure.com/` (e.g. `contoso`), **not** the full URL.
+2. Top-right **User settings** (gear/person icon) → **Personal access tokens**
+   (direct link: `https://dev.azure.com/<your-org>/_usersSettings/tokens`).
+3. **+ New Token**, then set:
+   - **Name** — e.g. `ai-sdlc-mcp`.
+   - **Organization** — select the specific org (not "All accessible organizations").
+   - **Expiration** — pick a short window (e.g. 30 days); re-run `setup-mcp.ps1` to rotate.
+   - **Scopes** — choose **Custom defined**, then grant read-only:
+     **Work Items → Read**, **Code → Read**, **Project and Team → Read**.
+     (Add the matching **Read & write** scopes only if agents must later create/update work
+     items or PR comments — and only with governance sign-off; see §5.)
+4. **Create**, then **copy the token immediately** — Azure DevOps shows it only once.
+
+**Put it in `.env`** (raw token — the script encodes it):
+```
+AZURE_DEVOPS_ORG=your-org-name
+AZURE_DEVOPS_PAT=<paste the raw token>
+```
+`setup-mcp.ps1` base64-encodes it into the `PERSONAL_ACCESS_TOKEN` form the server expects
+(base64 of `email:pat`) — paste the **raw** token, not an encoded one. Run the script, then
+verify per §4.8.
 
 > **Prefer Azure CLI auth?** Set the `ado` entry's `--authentication` back to `azcli`
 > and drop its `env` block; then `az login` supplies the credential instead of a PAT.
@@ -123,7 +139,10 @@ approve access with your Atlassian account. The token is stored locally by the s
 ### 4.5 Figma (remote, default)
 
 No pre-configuration required. On first use the server opens a browser OAuth flow —
-approve access with your Figma account.
+approve access with your Figma account (the remote server uses OAuth, **not** a token).
+
+**Requires a paid Figma plan with a Dev or Full seat** — other seat types hit usage limits.
+You typically work from Dev Mode and paste a file/frame URL to the agent as context.
 
 For local Dev Mode or full plugin access see the opt-ins in §2.
 
@@ -156,6 +175,36 @@ Prerequisites: an Azure App Registration with Microsoft Graph permissions.
 > **Governance (guardrail 5):** Teams posting is client communication. Any messages
 > composed by an agent are drafts — PM/PO must review and approve before sending.
 > Default agent behaviour should be read-only.
+
+### 4.8 Verify the connection (and approve project servers)
+
+After generating `.mcp.json`, **reload the Claude session / VS Code window** so it loads the
+new file, then check status:
+
+```powershell
+claude mcp list        # or type /mcp inside a Claude session
+```
+
+Each server shows one of:
+
+- **✓ Connected** — ready to use.
+- **⏸ Pending approval** — Claude Code requires you to **trust** servers defined in a project
+  `.mcp.json` before they run (a security gate; all project servers start here). Approve them
+  one of two ways:
+  - **Interactive:** type `/mcp` → select the server → **Approve** (and, for `atlassian` /
+    `figma`, complete the browser **Authenticate** step).
+  - **Settings:** add the server name to `enabledMcpjsonServers` in
+    `.claude/settings.local.json` — e.g. `{ "enabledMcpjsonServers": ["ado"] }` — or set
+    `"enableAllProjectMcpServers": true` to trust all of them. That file is gitignored, so
+    approvals stay local and are never committed.
+- **✗ Failed / error** — run the server's standalone command to isolate the cause (e.g.
+  `npx -y @azure-devops/mcp <org> --authentication pat`). A failure there points at the
+  credential or its scopes, not the wiring.
+
+The token/stdio servers (`github` via Bearer header, `ado`, `playwright`, `teams`) connect
+without a browser step once trusted; the remote OAuth servers (`atlassian`, `figma`)
+additionally need the one-time browser **Authenticate**. To smoke-test a connected server,
+ask an agent a read-only question — e.g. *"list my Azure DevOps projects"*.
 
 ## 5. Governance
 
